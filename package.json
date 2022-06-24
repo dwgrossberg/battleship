@@ -4,7 +4,7 @@
   "description": "A small app implementation of the classic game Battleship",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"
@@ -22,8 +22,10 @@
   "homepage": "https://github.com/dwgrossberg/battleship#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
+    "babel-jest": "^28.1.1",
     "css-loader": "^6.7.1",
     "eslint": "^8.18.0",
+    "identity-obj-proxy": "^3.0.0",
     "prettier": "2.7.1",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
