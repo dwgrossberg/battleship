@@ -1,2 +1,3 @@
 # battleship
-A small app implementation of the classic game Battleship
+
+A TDD implementation of the classic game Battleship
