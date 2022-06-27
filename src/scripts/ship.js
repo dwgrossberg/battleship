@@ -29,7 +29,6 @@ const Ship = () => {
 
   return {
     ships,
-    // length,
   };
 };
 

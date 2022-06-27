@@ -21,5 +21,11 @@ describe("Ship Factory", () => {
         expect(hits.length).toBe(length);
       }
     );
+    it.each(Ship().ships)(
+      "each ship contains an isSunk property that returns false by default",
+      ({ isSunk }) => {
+        expect(isSunk).toBe(false);
+      }
+    );
   });
 });
