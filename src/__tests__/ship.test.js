@@ -17,14 +17,23 @@ describe("Ship Factory", () => {
     });
     it.each(Ship().ships)(
       "each ship contains a hits array that corresponds to its length: $length",
-      ({ length, hits }) => {
-        expect(hits.length).toBe(length);
+      ({ length, damage }) => {
+        expect(damage.length).toBe(length);
       }
     );
     it.each(Ship().ships)(
-      "each ship contains an isSunk property that returns false by default",
-      ({ isSunk }) => {
-        expect(isSunk).toBe(false);
+      "each ship contains a sunk property that returns false by default",
+      ({ sunk }) => {
+        expect(sunk).toBe(false);
+      }
+    );
+  });
+
+  describe("methods", () => {
+    it.each(Ship().ships)(
+      "each ship contains a hit function that takes a number and marks that position as 'hit'",
+      ({ type, damage }) => {
+        expect(Ship().hit(type, 0)).toBe(damage);
       }
     );
   });
