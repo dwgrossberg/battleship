@@ -1,3 +1,4 @@
 import "../styles/index.scss";
+import ship from "./ship";
 
-console.log("hi");
+ship();

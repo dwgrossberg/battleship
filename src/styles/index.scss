@@ -1,7 +1,17 @@
 $primary-color: rgb(173, 138, 144);
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: auto;
+}
+
 .container {
   background-color: $primary-color;
-  height: 200px;
-  width: 200px;
+  height: 500px;
+  width: 500px;
 }
