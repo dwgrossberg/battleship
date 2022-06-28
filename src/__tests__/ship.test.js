@@ -1,51 +1,26 @@
 /* eslint-disable no-undef */
-import Ship from "../scripts/ship";
-
-// jest.mock("../scripts/ship");
+import Ship from "../scripts/factories/ship";
 
 describe("Ship Factory", () => {
+  const testShip1 = Ship("abc", 5);
   describe("type", () => {
-    it("happy path", () => {
+    test("happy path", () => {
       expect(Ship);
     });
-    it("returns an object", () => {
-      expect(typeof Ship()).toBe("object");
+    test("returns an object", () => {
+      expect(typeof testShip1).toBe("object");
     });
   });
 
   describe("properties", () => {
-    it("contains the correct number of ships", () => {
-      expect(Ship().ships.length).toBe(5);
+    test("ship name", () => {
+      expect(testShip1.type.name).toBe("abc");
     });
-    it.each(Ship().ships)(
-      "each ship contains a hits array that corresponds to its length: $length",
-      ({ length, damage }) => {
-        expect(damage.length).toBe(length);
-      }
-    );
-    it.each(Ship().ships)(
-      "each ship contains a sunk property that returns false by default",
-      ({ sunk }) => {
-        expect(sunk).toBe(false);
-      }
-    );
-  });
-
-  describe("methods", () => {
-    const testShip = Ship();
-    it.each(testShip.ships)("each ship contains a hit function", () => {
-      expect(testShip.ships.forEach((ship) => ship.hit()));
+    test("ship length", () => {
+      expect(testShip1.type.length).toBe(5);
     });
-    testShip.ships.forEach((ship) => ship.hit(0));
-    it("test ship hit", () => {
-      expect(testShip.ships[0].damage).toContain("hit");
+    test("ship hits array corresponds to ship length", () => {
+      expect(testShip1.type.hits).toEqual([null, null, null, null, null]);
     });
-
-    it.each(testShip.ships)(
-      "each ship contains a hit function that takes a number and marks that position as 'hit'",
-      ({ damage }) => {
-        expect(damage).toContain("hit");
-      }
-    );
   });
 });
