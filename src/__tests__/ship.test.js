@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import Ship from "../scripts/ship";
 
+// jest.mock("../scripts/ship");
+
 describe("Ship Factory", () => {
   describe("type", () => {
     it("happy path", () => {
@@ -30,10 +32,19 @@ describe("Ship Factory", () => {
   });
 
   describe("methods", () => {
-    it.each(Ship().ships)(
+    const testShip = Ship();
+    it.each(testShip.ships)("each ship contains a hit function", () => {
+      expect(testShip.ships.forEach((ship) => ship.hit()));
+    });
+    testShip.ships.forEach((ship) => ship.hit(0));
+    it("test ship hit", () => {
+      expect(testShip.ships[0].damage).toContain("hit");
+    });
+
+    it.each(testShip.ships)(
       "each ship contains a hit function that takes a number and marks that position as 'hit'",
-      ({ type, damage }) => {
-        expect(Ship().hit(type, 0)).toBe(damage);
+      ({ damage }) => {
+        expect(damage).toContain("hit");
       }
     );
   });
