@@ -1,12 +1,14 @@
 const Ship = (name, length) => {
-  const type = {
+  return {
     name: name,
     length: length,
-    hits: [],
-  };
-
-  return {
-    type,
+    hits: Array.from(Array(length).keys()).fill(null, 0),
+    hit(num) {
+      this.hits[num] = "hit";
+    },
+    isSunk() {
+      return this.hits.every((position) => (position === "hit" ? true : false));
+    },
   };
 };
 
