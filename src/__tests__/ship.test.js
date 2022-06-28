@@ -20,7 +20,7 @@ describe("Ship Factory", () => {
       expect(testShip1.type.length).toBe(5);
     });
     test("ship hits array corresponds to ship length", () => {
-      expect(testShip1.type.hits).toEqual([null, null, null, null, null]);
+      expect(testShip1.type.hits).toEqual([]);
     });
   });
 });
