@@ -20,7 +20,7 @@ describe("Ship Factory", () => {
     test("ship length matches input length", () => {
       expect(testShip1.length).toBe(5);
     });
-    test("ship hits array is empty at initialization", () => {
+    test("ship hits array is empty at initialization & corresponds to ship length", () => {
       expect(testShip1.hits).toEqual([null, null, null, null, null]);
     });
   });

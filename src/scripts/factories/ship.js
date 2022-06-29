@@ -2,7 +2,7 @@ const Ship = (name, length) => {
   return {
     name: name,
     length: length,
-    hits: Array.from(Array(length).keys()).fill(null, 0),
+    hits: Array(length).fill(null),
     hit(num) {
       this.hits[num] = "hit";
     },
