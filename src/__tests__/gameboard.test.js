@@ -25,6 +25,15 @@ describe("Gameboard Factory", () => {
     test("Gameboard can place horizontal ships at specific coords", () => {
       board1.placeShip(carrier, 33);
       expect(board1.data.board[33].hasShip).toBe(true);
+      expect(board1.data.board[34].hasShip).toBe(true);
+      expect(board1.data.board[35].hasShip).toBe(true);
+      expect(board1.data.board[36].hasShip).toBe(true);
+      expect(board1.data.board[37].hasShip).toBe(true);
+    });
+    test("Gameboard will not span horizontal ships across the board edges", () => {
+      board1.placeShip(carrier, 8);
+      expect(board1.data.board[8].hasShip).toBe(false);
+      expect(board1.data.board[9].hasShip).toBe(false);
     });
   });
 });
