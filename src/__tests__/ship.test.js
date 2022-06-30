@@ -14,23 +14,27 @@ describe("Ship Factory", () => {
   });
 
   describe("properties", () => {
-    test("ship name matches input name", () => {
+    test("Ship name matches input name", () => {
       expect(testShip1.name).toBe("a");
     });
-    test("ship length matches input length", () => {
+    test("Ship length matches input length", () => {
       expect(testShip1.length).toBe(5);
     });
-    test("ship hits array is empty at initialization & corresponds to ship length", () => {
+    test("Ship hits array is empty at initialization & corresponds to ship length", () => {
       expect(testShip1.hits).toEqual([null, null, null, null, null]);
     });
   });
 
   describe("methods", () => {
-    test("ship hit function logs to hits array", () => {
+    test("changeAxis function correctly updates Ship vertical property", () => {
+      testShip1.changeAxis("vertical");
+      expect(testShip1.vertical).toBe(true);
+    });
+    test("Ship hit function logs to hits array", () => {
       testShip1.hit(2);
       expect(testShip1.hits).toEqual([null, null, "hit", null, null]);
     });
-    test("ship isSunk function correctly identifies when hits array is full", () => {
+    test("isSunk function correctly identifies when Ship hits array is full", () => {
       testShip1.hit(0);
       testShip1.hit(1);
       testShip1.hit(2);
@@ -38,7 +42,7 @@ describe("Ship Factory", () => {
       testShip1.hit(4);
       expect(testShip1.isSunk()).toBe(true);
     });
-    test("ship isSunk function does not incorrectly log true when hits array is not full", () => {
+    test("isSunk function does not incorrectly log true when Ship hits array is not full", () => {
       testShip2.hit(0);
       testShip2.hit(2);
       expect(testShip2.isSunk()).toBe(false);
