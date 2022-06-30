@@ -19,17 +19,10 @@ const Gameboard = (player) => {
         rightEdges.push(startingPoint);
         rightEdges.sort((a, b) => a - b);
         const index = rightEdges.indexOf(startingPoint);
-        console.log(
-          index,
-          rightEdges[index + 1],
-          rightEdges[index],
-          ship.length
-        );
         return rightEdges[index + 1] - rightEdges[index] >= ship.length
           ? true
           : false;
       };
-      console.log(checkEdges());
       if (checkEdges()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;

@@ -18,7 +18,7 @@ describe("Gameboard Factory", () => {
     test("Gameboard data object logs player namer correctly", () => {
       expect(board1.data.player).toBe("test");
     });
-    test("Gameboard is 100 spaces long", () => {
+    test("Gameboard is an array 100 spaces long", () => {
       board1.initBoard();
       expect(board1.data.board.length).toBe(100);
     });
@@ -31,7 +31,7 @@ describe("Gameboard Factory", () => {
       expect(board1.data.board[37].hasShip).toBe(true);
     });
     test("Gameboard will not span horizontal ships across the board edges", () => {
-      board1.placeShip(carrier, 8);
+      board1.placeShip(carrier, 87);
       expect(board1.data.board[8].hasShip).toBe(false);
       expect(board1.data.board[9].hasShip).toBe(false);
     });
