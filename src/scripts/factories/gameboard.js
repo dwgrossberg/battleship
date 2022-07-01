@@ -16,7 +16,7 @@ const Gameboard = (player) => {
     const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
     const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
     const checkRightEdge = () => {
-      let edgeList = rightEdges.slice();
+      const edgeList = rightEdges.slice();
       edgeList.push(startingPoint);
       edgeList.sort((a, b) => a - b);
       const index = edgeList.indexOf(startingPoint);
@@ -25,18 +25,16 @@ const Gameboard = (player) => {
         : false;
     };
     const checkBottomEdge = () => {
-      // let edgeList = bottomEdges.slice();
       let open = true;
       bottomEdges.forEach((num) => {
-        console.log(num, startingPoint);
-        (num - startingPoint) / 10 >= ship.length
+        console.log(num - startingPoint, ship.length);
+        (num - startingPoint) / 7.5 >= ship.length
           ? (open = true)
           : (open = false);
       });
       return open;
     };
     if (ship.vertical === false) {
-      console.log(checkBottomEdge());
       if (checkRightEdge()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;

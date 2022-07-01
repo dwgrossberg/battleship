@@ -16,7 +16,7 @@ const shipData = [
     length: 2,
   },
   {
-    name: "patrol boat",
+    name: "patrol-boat",
     length: 1,
   },
 ];
