@@ -34,17 +34,24 @@ const Gameboard = (player) => {
       });
       return open;
     };
-    if (ship.vertical === false) {
+    if (
+      ship.vertical === false &&
+      data.board[startingPoint].hasShip === false
+    ) {
       if (checkRightEdge()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
           data.board[startingPoint + i]["shipType"] = ship.name;
         }
       }
-    } else if (ship.vertical === true) {
+    } else if (
+      ship.vertical === true &&
+      data.board[startingPoint].hasShip === false
+    ) {
       if (checkBottomEdge()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
+          data.board[startingPoint + i * 10]["shipType"] = ship.name;
         }
       }
     }

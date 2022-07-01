@@ -64,6 +64,8 @@ describe("Gameboard Factory", () => {
       expect(board1.data.board[89].hasShip).toBe(false);
       expect(board1.data.board[99].hasShip).toBe(false);
     });
-    test("Gameboard will not place a Ship in a space with another Ship already there", () => {});
+    test("Gameboard will not place a Ship in a space with another Ship already there", () => {
+      board1.placeShip(patrolBoat, 54);
+    });
   });
 });
