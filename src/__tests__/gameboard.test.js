@@ -33,8 +33,6 @@ describe("Gameboard Factory", () => {
       expect(board1.data.board[35].hasShip).toBe(true);
       expect(board1.data.board[36].hasShip).toBe(true);
       expect(board1.data.board[37].hasShip).toBe(true);
-      board1.placeShip(patrolBoat, 0);
-      expect(board1.data.board[0].hasShip).toBe(true);
     });
     test("Gameboard will not span horizontal ships across the board edges", () => {
       board1.placeShip(carrier, 8);
@@ -66,5 +64,6 @@ describe("Gameboard Factory", () => {
       expect(board1.data.board[89].hasShip).toBe(false);
       expect(board1.data.board[99].hasShip).toBe(false);
     });
+    test("Gameboard will not place a Ship in a space with another Ship already there", () => {});
   });
 });

@@ -38,6 +38,7 @@ const Gameboard = (player) => {
       if (checkRightEdge()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
+          data.board[startingPoint + i]["shipType"] = ship.name;
         }
       }
     } else if (ship.vertical === true) {
