@@ -12,6 +12,8 @@ const Gameboard = (player) => {
     }
   };
 
+  initBoard();
+
   const placeShip = (ship, startingPoint) => {
     const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
     const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
@@ -27,7 +29,6 @@ const Gameboard = (player) => {
     const checkBottomEdge = () => {
       let open = true;
       bottomEdges.forEach((num) => {
-        console.log(num - startingPoint, ship.length);
         (num - startingPoint) / 7.5 >= ship.length
           ? (open = true)
           : (open = false);
@@ -42,6 +43,7 @@ const Gameboard = (player) => {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
           data.board[startingPoint + i]["shipType"] = ship.name;
+          ship.position.push(startingPoint + i);
         }
       }
     } else if (
@@ -51,16 +53,26 @@ const Gameboard = (player) => {
       if (checkBottomEdge()) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
-          data.board[startingPoint + i * 10]["shipType"] = ship.name;
+          data.board[startingPoint + i * 10]["shipName"] = ship.name;
+          ship.position.push(startingPoint + i);
         }
       }
     }
+  };
+
+  const randomlyPlace = (...args) => {
+    args.forEach((arg) => {
+      let randomNum = Math.floor(Math.random() * (100 - 0));
+      console.log(randomNum, data.board[randomNum]);
+      placeShip(arg, randomNum);
+    });
   };
 
   return {
     data,
     initBoard,
     placeShip,
+    randomlyPlace,
   };
 };
 

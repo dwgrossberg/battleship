@@ -4,6 +4,7 @@ const Ship = (name, length) => {
     length: length,
     vertical: false,
     hits: Array(length).fill(null),
+    position: [],
     changeAxis(direction) {
       if (direction === "vertical") {
         this.vertical = true;
