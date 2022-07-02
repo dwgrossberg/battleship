@@ -100,16 +100,9 @@ describe("Gameboard Factory", () => {
         battleship.vertical,
         carrier.vertical,
       ]).toContain(true);
-      expect([
-        patrolBoat.vertical,
-        submarine.vertical,
-        destroyer.vertical,
-        battleship.vertical,
-        carrier.vertical,
-      ]).toContain(false);
     });
     test("Gameboard can randomlyPlace all Ships", () => {
-      console.log(carrier);
+      console.log(carrier, battleship, destroyer, submarine, patrolBoat);
       expect(carrier.position.length).toBe(5);
       expect(battleship.position.length).toBe(4);
       expect(destroyer.position.length).toBe(3);

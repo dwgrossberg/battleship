@@ -14,32 +14,33 @@ const Gameboard = (player) => {
 
   initBoard();
 
-  const placeShip = (ship, startingPoint) => {
-    const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
-    const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
-    const checkRightEdge = () => {
+  const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
+  const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
+
+  const checkEdges = (ship, num) => {
+    if (ship.vertical === false) {
       const edgeList = rightEdges.slice();
-      edgeList.push(startingPoint);
+      edgeList.push(num);
       edgeList.sort((a, b) => a - b);
-      const index = edgeList.indexOf(startingPoint);
+      const index = edgeList.indexOf(num);
       return edgeList[index + 1] - edgeList[index] >= ship.length
         ? true
         : false;
-    };
-    const checkBottomEdge = () => {
+    } else if (ship.vertical === true) {
       let open = true;
-      bottomEdges.forEach((num) => {
-        (num - startingPoint) / 7.5 >= ship.length
-          ? (open = true)
-          : (open = false);
+      bottomEdges.forEach((edge) => {
+        (edge - num) / 7.5 >= ship.length ? (open = true) : (open = false);
       });
       return open;
-    };
+    }
+  };
+
+  const placeShip = (ship, startingPoint) => {
     if (
       ship.vertical === false &&
       data.board[startingPoint].hasShip === false
     ) {
-      if (checkRightEdge()) {
+      if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
           data.board[startingPoint + i]["shipType"] = ship.name;
@@ -50,7 +51,7 @@ const Gameboard = (player) => {
       ship.vertical === true &&
       data.board[startingPoint].hasShip === false
     ) {
-      if (checkBottomEdge()) {
+      if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
           data.board[startingPoint + i * 10]["shipName"] = ship.name;
@@ -64,9 +65,15 @@ const Gameboard = (player) => {
     args.forEach((arg) => {
       const isVertical = Math.round(Math.random());
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
-      const randomSpot = Math.floor(Math.random() * 100);
-      console.log(isVertical, data.board[randomSpot]);
-      placeShip(arg, randomSpot);
+      let randomSpot = Math.floor(Math.random() * 100);
+      while (arg.position.length === 0) {
+        if (checkEdges(arg, randomSpot)) {
+          placeShip(arg, randomSpot);
+        } else {
+          randomSpot = Math.floor(Math.random() * 100);
+          console.log(randomSpot);
+        }
+      }
     });
   };
 
