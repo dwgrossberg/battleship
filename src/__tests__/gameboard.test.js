@@ -75,7 +75,7 @@ describe("Gameboard Factory", () => {
     });
     test("Gameboard will not place a Ship in a space with another Ship already there", () => {
       testBoard.placeShip(patrolBoat, 54);
-      expect(testBoard.data.board[54].shipName).toBe("battleship");
+      expect(testBoard.data.board[54].shipType).toBe(battleship);
     });
   });
   describe("advanced Gameboard methods", () => {
@@ -102,12 +102,28 @@ describe("Gameboard Factory", () => {
       ]).toContain(true);
     });
     test("Gameboard can randomlyPlace all Ships", () => {
-      console.log(carrier, battleship, destroyer, submarine, patrolBoat);
       expect(carrier.position.length).toBe(5);
       expect(battleship.position.length).toBe(4);
       expect(destroyer.position.length).toBe(3);
       expect(submarine.position.length).toBe(2);
       expect(patrolBoat.position.length).toBe(1);
+    });
+    const testBoard2 = Gameboard("shots fired");
+    const testShip = Ship("test", 5);
+    const testShip2 = Ship("test", 3);
+    test("Gameboard receiveAttack function correctly logs hits to Ships", () => {
+      testBoard2.placeShip(testShip, 33);
+      testBoard2.receiveAttack(35);
+      expect(testShip.hits[2]).toBe("hit");
+      expect(testBoard2.data.missedShots.length).toBe(0);
+    });
+    test("Gameboard receiveAttack function correctly logs misses to the missedShots array", () => {
+      testBoard2.placeShip(testShip2, 50);
+      testBoard2.receiveAttack(2);
+      console.log(testBoard2, testShip2);
+      expect(testShip2.hits).not.toContain("hit");
+      expect(testBoard2.data.missedShots.length).toBe(1);
+      expect(testBoard2.data.missedShots).toContain(2);
     });
   });
 });

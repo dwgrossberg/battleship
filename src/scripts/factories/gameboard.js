@@ -43,7 +43,7 @@ const Gameboard = (player) => {
       if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
-          data.board[startingPoint + i]["shipType"] = ship.name;
+          data.board[startingPoint + i]["shipType"] = ship;
           ship.position.push(startingPoint + i);
         }
       }
@@ -54,7 +54,7 @@ const Gameboard = (player) => {
       if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
-          data.board[startingPoint + i * 10]["shipName"] = ship.name;
+          data.board[startingPoint + i * 10]["shipType"] = ship;
           ship.position.push(startingPoint + i);
         }
       }
@@ -71,10 +71,23 @@ const Gameboard = (player) => {
           placeShip(arg, randomSpot);
         } else {
           randomSpot = Math.floor(Math.random() * 100);
-          console.log(randomSpot);
         }
       }
     });
+    //  Ensure at least one Ship is in the opposite direction if all Ships are turned the same way
+    if (args.every((arg) => arg.vertical === false)) {
+      args[2].vertical = true;
+    } else if (args.every((arg) => arg.vertical === true)) {
+      args[2].vertical = false;
+    }
+  };
+
+  const receiveAttack = (num) => {
+    data.board[num].hasShip === true
+      ? (data.board[num].shipType.hits[
+          data.board[num].shipType.position.indexOf(num)
+        ] = "hit")
+      : data.missedShots.push(num);
   };
 
   return {
@@ -82,6 +95,7 @@ const Gameboard = (player) => {
     initBoard,
     placeShip,
     randomlyPlace,
+    receiveAttack,
   };
 };
 
