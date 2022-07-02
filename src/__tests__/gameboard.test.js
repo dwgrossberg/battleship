@@ -23,7 +23,6 @@ describe("Gameboard Factory", () => {
       expect(testBoard.data.player).toBe("test1");
     });
     test("Gameboard is an array 100 spaces long", () => {
-      testBoard.initBoard();
       expect(testBoard.data.board.length).toBe(100);
     });
     test("Gameboard can place horizontal ships at specific coords", () => {
@@ -79,22 +78,38 @@ describe("Gameboard Factory", () => {
       expect(testBoard.data.board[54].shipName).toBe("battleship");
     });
   });
-  describe.only("advanced Gameboard methods", () => {
+  describe("advanced Gameboard methods", () => {
     const testBoard = Gameboard("test2");
     const carrier = Ship("carrier", 5);
     const battleship = Ship("battleship", 4);
     const destroyer = Ship("destroyer", 3);
     const submarine = Ship("submarine", 2);
     const patrolBoat = Ship("patrol-boat", 1);
-    test("Gameboard can randomlyPlace all Ships on the board", () => {
-      testBoard.randomlyPlace(
-        patrolBoat,
-        submarine,
-        destroyer,
-        battleship,
-        carrier
-      );
-      console.log(carrier.position);
+    testBoard.randomlyPlace(
+      patrolBoat,
+      submarine,
+      destroyer,
+      battleship,
+      carrier
+    );
+    test("Gameboard randomlyPlace will trigger changeAxis for at least one Ship, but not all", () => {
+      expect([
+        patrolBoat.vertical,
+        submarine.vertical,
+        destroyer.vertical,
+        battleship.vertical,
+        carrier.vertical,
+      ]).toContain(true);
+      expect([
+        patrolBoat.vertical,
+        submarine.vertical,
+        destroyer.vertical,
+        battleship.vertical,
+        carrier.vertical,
+      ]).toContain(false);
+    });
+    test("Gameboard can randomlyPlace all Ships", () => {
+      console.log(carrier);
       expect(carrier.position.length).toBe(5);
       expect(battleship.position.length).toBe(4);
       expect(destroyer.position.length).toBe(3);

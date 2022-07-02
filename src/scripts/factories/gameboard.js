@@ -62,9 +62,11 @@ const Gameboard = (player) => {
 
   const randomlyPlace = (...args) => {
     args.forEach((arg) => {
-      let randomNum = Math.floor(Math.random() * (100 - 0));
-      console.log(randomNum, data.board[randomNum]);
-      placeShip(arg, randomNum);
+      const isVertical = Math.round(Math.random());
+      isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
+      const randomSpot = Math.floor(Math.random() * 100);
+      console.log(isVertical, data.board[randomSpot]);
+      placeShip(arg, randomSpot);
     });
   };
 
