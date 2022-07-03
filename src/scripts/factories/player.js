@@ -7,15 +7,9 @@ const Player = (name) => {
     ships: [],
   };
 
-  const newFleet = () => {
-    console.log(shipData);
-    shipData.forEach((item) => {
-      console.log(item);
-      playerInfo.ships.push(Ship(item.name, item.length));
-    });
-  };
-
-  newFleet();
+  shipData.forEach((item) =>
+    playerInfo.ships.push(Ship(item.name, item.length))
+  );
 
   return {
     playerInfo,
