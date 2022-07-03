@@ -143,7 +143,6 @@ describe("Gameboard Factory", () => {
       testBoard3.receiveAttack(43);
       expect(testBoard3.allSunk()).toBe(false);
       testBoard3.receiveAttack(53);
-      console.log(testBoard3.data);
       expect(testBoard3.allSunk()).toBe(true);
     });
   });

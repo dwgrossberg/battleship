@@ -97,7 +97,6 @@ const Gameboard = (player) => {
     // If Ship hits array is full, remove it from the Gameboard
     if (data.board[num].hasShip === true) {
       if (data.board[num].shipType.hits.every((item) => item === "hit")) {
-        console.log(data.board[num].shipType);
         removeShip(data.board[num].shipType);
       }
     }
