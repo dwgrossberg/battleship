@@ -55,7 +55,7 @@ const Gameboard = (player) => {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
           data.board[startingPoint + i * 10]["shipType"] = ship;
-          ship.position.push(startingPoint + i);
+          ship.position.push(startingPoint + i * 10);
         }
       }
     }
@@ -82,12 +82,29 @@ const Gameboard = (player) => {
     }
   };
 
+  const removeShip = (ship) => {
+    ship.position.forEach((index) => {
+      data.board[index] = { hasShip: false, isHit: false };
+    });
+  };
+
   const receiveAttack = (num) => {
     data.board[num].hasShip === true
       ? (data.board[num].shipType.hits[
           data.board[num].shipType.position.indexOf(num)
         ] = "hit")
       : data.missedShots.push(num);
+    // If Ship hits array is full, remove it from the Gameboard
+    if (data.board[num].hasShip === true) {
+      if (data.board[num].shipType.hits.every((item) => item === "hit")) {
+        console.log(data.board[num].shipType);
+        removeShip(data.board[num].shipType);
+      }
+    }
+  };
+
+  const allSunk = () => {
+    return data.board.every((space) => space.hasShip === false) ? true : false;
   };
 
   return {
@@ -96,6 +113,7 @@ const Gameboard = (player) => {
     placeShip,
     randomlyPlace,
     receiveAttack,
+    allSunk,
   };
 };
 

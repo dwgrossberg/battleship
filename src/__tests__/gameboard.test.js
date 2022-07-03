@@ -100,6 +100,13 @@ describe("Gameboard Factory", () => {
         battleship.vertical,
         carrier.vertical,
       ]).toContain(true);
+      expect([
+        patrolBoat.vertical,
+        submarine.vertical,
+        destroyer.vertical,
+        battleship.vertical,
+        carrier.vertical,
+      ]).toContain(false);
     });
     test("Gameboard can randomlyPlace all Ships", () => {
       expect(carrier.position.length).toBe(5);
@@ -120,10 +127,24 @@ describe("Gameboard Factory", () => {
     test("Gameboard receiveAttack function correctly logs misses to the missedShots array", () => {
       testBoard2.placeShip(testShip2, 50);
       testBoard2.receiveAttack(2);
-      console.log(testBoard2, testShip2);
       expect(testShip2.hits).not.toContain("hit");
       expect(testBoard2.data.missedShots.length).toBe(1);
       expect(testBoard2.data.missedShots).toContain(2);
+    });
+    const testBoard3 = Gameboard("sunk");
+    const sunkShip = Ship("sinker", 3);
+    test("Gameboard can verify whether or not all Ships have been sunk", () => {
+      expect(testBoard3.allSunk()).toBe(true);
+      sunkShip.changeAxis("vertical");
+      testBoard3.placeShip(sunkShip, 33);
+      expect(testBoard3.allSunk()).toBe(false);
+      testBoard3.receiveAttack(33);
+      expect(testBoard3.allSunk()).toBe(false);
+      testBoard3.receiveAttack(43);
+      expect(testBoard3.allSunk()).toBe(false);
+      testBoard3.receiveAttack(53);
+      console.log(testBoard3.data);
+      expect(testBoard3.allSunk()).toBe(true);
     });
   });
 });
