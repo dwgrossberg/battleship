@@ -25,6 +25,13 @@ describe("Gameboard Factory", () => {
     test("Gameboard is an array 100 spaces long", () => {
       expect(testBoard.data.board.length).toBe(100);
     });
+    test("Player factory automatically creates a new fleet on start", () => {
+      expect(testBoard.data.ships.length).toBe(5);
+      expect(testBoard.data.ships[1].name).toBe("battleship");
+      expect(testBoard.data.ships[2].name).toBe("destroyer");
+      expect(testBoard.data.ships[3].name).toBe("submarine");
+      expect(testBoard.data.ships[4].name).toBe("patrol-boat");
+    });
     test("Gameboard can place horizontal ships at specific coords", () => {
       testBoard.placeShip(patrolBoat, 0);
       expect(testBoard.data.board[0].hasShip).toBe(true);

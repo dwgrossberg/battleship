@@ -1,8 +1,12 @@
+import shipData from "../helpers/ship-data";
+import Ship from "./ship";
+
 const Gameboard = (player) => {
   const data = {
     board: [],
     player: player,
     shipsLeft: true,
+    ships: [],
     missedShots: [],
   };
 
@@ -13,6 +17,12 @@ const Gameboard = (player) => {
   };
 
   initBoard();
+
+  const newFleet = () => {
+    shipData.forEach((item) => data.ships.push(Ship(item.name, item.length)));
+  };
+
+  newFleet();
 
   const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
   const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
@@ -108,7 +118,6 @@ const Gameboard = (player) => {
 
   return {
     data,
-    initBoard,
     placeShip,
     randomlyPlace,
     receiveAttack,
