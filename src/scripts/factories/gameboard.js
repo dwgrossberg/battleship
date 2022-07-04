@@ -72,7 +72,7 @@ const Gameboard = (player) => {
   };
 
   const randomlyPlace = (...args) => {
-    args.forEach((arg) => {
+    args[0].forEach((arg) => {
       const isVertical = Math.round(Math.random());
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
       let randomSpot = Math.floor(Math.random() * 100);
@@ -109,6 +109,9 @@ const Gameboard = (player) => {
       if (data.board[num].shipType.hits.every((item) => item === "hit")) {
         removeShip(data.board[num].shipType);
       }
+      return true;
+    } else {
+      return false;
     }
   };
 

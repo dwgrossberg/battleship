@@ -92,13 +92,13 @@ describe("Gameboard Factory", () => {
     const destroyer = Ship("destroyer", 3);
     const submarine = Ship("submarine", 2);
     const patrolBoat = Ship("patrol-boat", 1);
-    testBoard.randomlyPlace(
+    testBoard.randomlyPlace([
       patrolBoat,
       submarine,
       destroyer,
       battleship,
-      carrier
-    );
+      carrier,
+    ]);
     test("Gameboard randomlyPlace will trigger changeAxis for at least one Ship, but not all", () => {
       expect([
         patrolBoat.vertical,
