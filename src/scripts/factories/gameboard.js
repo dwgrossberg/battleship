@@ -14,7 +14,6 @@ const Gameboard = (player) => {
     for (let i = 0; i < 100; i++) {
       data.board.push({ hasShip: false, isHit: false });
     }
-    console.log(player);
   };
 
   initBoard();

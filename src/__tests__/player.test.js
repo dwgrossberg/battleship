@@ -35,6 +35,13 @@ describe("Player Factory", () => {
     test("roboPlayer can make a legal random move", () => {
       playerB.roboPlay(testBoardA);
       expect(playerB.playerInfo.shots.length).toBe(1);
+      console.log(playerB.playerInfo.shots);
+    });
+    test("roboPlayer returns a logical next-step move when it hits a Ship", () => {
+      const ace = Player("ace");
+      const testBoardC = Gameboard(ace);
+      testBoardC.placeShip(testBoardC.data.ships[0], 50);
+      expect(ace.roboPlay(testBoardC, 51)).toStrictEqual([50, 52, 61, 41]);
     });
   });
 });
