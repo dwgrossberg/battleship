@@ -1,7 +1,7 @@
 const Player = (name) => {
   const playerInfo = {
     name: name,
-    gameboard: [],
+    // gameboard: [],
     shots: [],
   };
 
@@ -11,7 +11,18 @@ const Player = (name) => {
       : playerInfo.shots.push({ index: num, shot: "miss" });
   };
 
-  const roboPlay = () => {};
+  const roboPlay = (board) => {
+    let randomSpot = Math.floor(Math.random() * 100);
+    let pass = true;
+    while (pass) {
+      if (board.data.board[randomSpot].hasShip === false) {
+        fireAway(board, randomSpot);
+        pass = false;
+      } else {
+        randomSpot = Math.floor(Math.random() * 100);
+      }
+    }
+  };
 
   return {
     playerInfo,

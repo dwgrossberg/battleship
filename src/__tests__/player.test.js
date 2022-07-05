@@ -3,10 +3,10 @@ import Player from "../scripts/factories/player";
 import Gameboard from "../scripts/factories/gameboard";
 
 describe("Player Factory", () => {
-  const testBoardA = Gameboard("testA");
   const playerA = Player("a");
-  const testBoardB = Gameboard("testB");
+  const testBoardA = Gameboard(playerA);
   const playerB = Player("b");
+  const testBoardB = Gameboard(playerB);
   testBoardA.randomlyPlace(testBoardA.data.ships);
   testBoardB.randomlyPlace(testBoardB.data.ships);
 
