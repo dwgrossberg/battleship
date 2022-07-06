@@ -1,14 +1,29 @@
-import Gameboard from "../factories/gameboard";
-import Player from "../factories/player";
-import Ship from "../factories/ship";
+import Gameboard from "../factories/gameboard.js";
+import Player from "../factories/player.js";
 
-const gameController = ((player1, player2) => {
-  const humanPlayer = Player(player1);
-  const roboPlayer = Player(player2);
-  const humanBoard = Gameboard(humanPlayer);
-  const roboBoard = Gameboard(roboPlayer);
+const gameController = (() => {
+  const startGame = (player1, player2) => {
+    // Create Player Objects
+    const humanPlayer = Player(player1);
+    let roboHuman;
+    if (player2) {
+      roboHuman = Player(player2);
+    } else {
+      roboHuman = Player("roboPlayer");
+    }
+    // Create Gameboards for each Player
+    const humanBoard = Gameboard(humanPlayer);
+    const roboBoard = Gameboard(roboHuman);
+    // Randomly place all Ships on each Gameboard
+    humanBoard.randomlyPlace(humanBoard.data.ships);
+    roboBoard.randomlyPlace(roboBoard.data.ships);
 
-  return {};
+    console.log(humanBoard, roboBoard);
+  };
+
+  return {
+    startGame,
+  };
 })();
 
 export default gameController;
