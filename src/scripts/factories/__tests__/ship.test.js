@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import Ship from "../scripts/factories/ship";
+import Ship from "../ship";
 
 describe("Ship Factory", () => {
   const testShip1 = Ship("a", 5);

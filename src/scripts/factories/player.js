@@ -58,14 +58,16 @@ const Player = (name) => {
     if (nextMove) {
       const nextBestMove =
         nextMove[Math.floor(Math.random() * nextMove.length)];
-      console.log(nextBestMove);
       fireAway(board, nextBestMove);
       return findNextMove(board, nextBestMove);
     } else {
       let randomSpot = Math.floor(Math.random() * 100);
       let pass = true;
       while (pass) {
-        if (board.data.board[randomSpot].isHit === false) {
+        if (
+          board.data.board[randomSpot].isHit === false &&
+          !playerInfo.shots.includes((item) => item.index)
+        ) {
           fireAway(board, randomSpot);
           pass = false;
           return findNextMove(board, randomSpot);

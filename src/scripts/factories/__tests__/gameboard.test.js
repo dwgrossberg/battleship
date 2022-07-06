@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import Gameboard from "../scripts/factories/gameboard";
-import Ship from "../scripts/factories/ship";
+import Gameboard from "../gameboard";
+import Ship from "../ship";
 
 describe("Gameboard Factory", () => {
   describe("type", () => {

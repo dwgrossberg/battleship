@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import Player from "../scripts/factories/player";
-import Gameboard from "../scripts/factories/gameboard";
+import Player from "../player";
+import Gameboard from "../gameboard";
 
 describe("Player Factory", () => {
   const playerA = Player("a");
@@ -46,7 +46,7 @@ describe("Player Factory", () => {
       expect(ace.roboPlay(testBoardC, [51])).toStrictEqual([50, 52]);
       expect(ace.roboPlay(testBoardC, [13])).toStrictEqual([3, 23]);
     });
-    test("roboPlayer will not try to expand the bounds of the Gameboard array", () => {
+    test("roboPlayer will not try to shoot outside the bounds of the Gameboard array", () => {
       expect(ace.roboPlay(testBoardC, [50])).toStrictEqual([51]);
       expect(ace.roboPlay(testBoardC, [3])).toStrictEqual([13]);
     });
