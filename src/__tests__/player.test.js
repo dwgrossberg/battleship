@@ -37,11 +37,18 @@ describe("Player Factory", () => {
       expect(playerB.playerInfo.shots.length).toBe(1);
       console.log(playerB.playerInfo.shots);
     });
+    const ace = Player("ace");
+    const testBoardC = Gameboard(ace);
+    testBoardC.placeShip(testBoardC.data.ships[0], 50);
+    testBoardC.data.ships[1].changeAxis("vertical");
+    testBoardC.placeShip(testBoardC.data.ships[1], 3);
     test("roboPlayer returns a logical next-step move when it hits a Ship", () => {
-      const ace = Player("ace");
-      const testBoardC = Gameboard(ace);
-      testBoardC.placeShip(testBoardC.data.ships[0], 50);
-      expect(ace.roboPlay(testBoardC, 51)).toStrictEqual([50, 52, 61, 41]);
+      expect(ace.roboPlay(testBoardC, [51])).toStrictEqual([50, 52]);
+      expect(ace.roboPlay(testBoardC, [13])).toStrictEqual([3, 23]);
+    });
+    test("roboPlayer will not try to expand the bounds of the Gameboard array", () => {
+      expect(ace.roboPlay(testBoardC, [50])).toStrictEqual([51]);
+      expect(ace.roboPlay(testBoardC, [3])).toStrictEqual([13]);
     });
   });
 });
