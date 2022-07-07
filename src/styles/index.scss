@@ -1,4 +1,10 @@
-$primary-color: rgb(173, 138, 144);
+@font-face {
+  font-family: "SeaWavesDurango";
+  src: url("../assets/SeaWavesDurango-8x4J.ttf") format("truetype");
+}
+
+$background-color: ghostwhite;
+$header-font: "SeaWavesDurango", sans-serif;
 
 * {
   padding: 0;
@@ -11,7 +17,14 @@ body {
 }
 
 .container {
-  background-color: $primary-color;
-  height: 500px;
-  width: 500px;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: $background-color;
+  background-image: url("../assets/japanese-waves.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  font-family: $header-font;
+  font-size: 35px;
+  // color: black;
 }
