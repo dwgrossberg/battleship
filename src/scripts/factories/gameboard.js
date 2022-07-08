@@ -37,11 +37,8 @@ const Gameboard = (player) => {
         ? true
         : false;
     } else if (ship.vertical === true) {
-      let open = true;
-      bottomEdges.forEach((edge) => {
-        (edge - num) / 7.5 >= ship.length ? (open = true) : (open = false);
-      });
-      return open;
+      const edge = bottomEdges.find((edge) => edge % 10 === num % 10);
+      return (edge - num) / 10 + 1 >= ship.length ? true : false;
     }
   };
 

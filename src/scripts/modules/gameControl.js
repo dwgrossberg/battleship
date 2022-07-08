@@ -18,7 +18,6 @@ const gameController = (() => {
     humanBoard.randomlyPlace(humanBoard.data.ships);
     roboBoard.randomlyPlace(roboBoard.data.ships);
 
-    console.log(humanBoard, roboBoard);
     return { humanBoard, roboBoard };
   };
 

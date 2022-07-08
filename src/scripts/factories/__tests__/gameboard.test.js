@@ -15,6 +15,7 @@ describe("Gameboard Factory", () => {
   describe("basic Gameboard methods", () => {
     const testBoard = Gameboard("test1");
     const carrier = Ship("carrier", 5);
+    const carrier2 = Ship("carrier2", 5);
     const battleship = Ship("battleship", 4);
     const destroyer = Ship("destroyer", 3);
     const submarine = Ship("submarine", 2);
@@ -63,13 +64,20 @@ describe("Gameboard Factory", () => {
       expect(testBoard.data.board[54].hasShip).toBe(true);
       expect(testBoard.data.board[64].hasShip).toBe(true);
       expect(testBoard.data.board[74].hasShip).toBe(true);
-      testBoard.placeShip(submarine, 80);
-      expect(testBoard.data.board[80].hasShip).toBe(true);
-      expect(testBoard.data.board[90].hasShip).toBe(true);
+      testBoard.placeShip(submarine, 86);
+      expect(testBoard.data.board[86].hasShip).toBe(true);
+      expect(testBoard.data.board[96].hasShip).toBe(true);
       testBoard.placeShip(patrolBoat, 98);
       expect(testBoard.data.board[98].hasShip).toBe(true);
     });
     test("Gameboard will not span vertical ships across the bottom edge", () => {
+      carrier2.changeAxis("vertical");
+      console.log(testBoard.data.board[80]);
+      testBoard.placeShip(carrier2, 60);
+      expect(testBoard.data.board[60].hasShip).toBe(false);
+      expect(testBoard.data.board[70].hasShip).toBe(false);
+      expect(testBoard.data.board[80].hasShip).toBe(false);
+      expect(testBoard.data.board[90].hasShip).toBe(false);
       testBoard.placeShip(destroyer, 83);
       expect(testBoard.data.board[83].hasShip).toBe(false);
       expect(testBoard.data.board[93].hasShip).toBe(false);

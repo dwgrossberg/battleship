@@ -3,6 +3,7 @@
 
 $background-color: rgb(248, 248, 255);
 $board-color: rgba(248, 248, 255, 0.9);
+$highlight-color: #6a7aac;
 $header-font: "Original Surfer", "cursive";
 $main-font: "Lato", sans-serif;
 
@@ -45,6 +46,11 @@ body {
   .header-right {
     margin-left: auto;
     font-size: 20px;
+    z-index: 10;
+    &:hover {
+      color: $highlight-color;
+      cursor: pointer;
+    }
   }
 }
 
@@ -54,6 +60,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 100px;
+  margin-top: -100px;
   #board-one {
     width: 300px;
     height: 300px;
