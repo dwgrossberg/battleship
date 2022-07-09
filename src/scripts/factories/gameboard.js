@@ -74,7 +74,7 @@ const Gameboard = (player) => {
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
       let randomSpot = Math.floor(Math.random() * 100);
       let pass = true;
-      while (pass) {
+      while (arg.position.length === 0) {
         if (checkEdges(arg, randomSpot)) {
           placeShip(arg, randomSpot);
           pass = false;
@@ -85,6 +85,7 @@ const Gameboard = (player) => {
     });
     //  Ensure at least one Ship is in the opposite direction if all Ships are turned the same way
     if (args.every((arg) => arg.vertical === false)) {
+      console.log("hi");
       args[2].vertical = true;
     } else if (args.every((arg) => arg.vertical === true)) {
       args[2].vertical = false;
