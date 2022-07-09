@@ -70,7 +70,7 @@ const Gameboard = (player) => {
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
       let randomSpot = Math.floor(Math.random() * 100);
       while (arg.position.length === 0) {
-        console.log(data.board[randomSpot]);
+        console.log(data.board[randomSpot], checkEdges(arg, randomSpot));
         if (checkEdges(arg, randomSpot)) {
           placeShip(arg, randomSpot);
         } else {
