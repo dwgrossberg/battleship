@@ -128,6 +128,18 @@ describe("Gameboard Factory", () => {
       expect(destroyer.position.length).toBe(3);
       expect(submarine.position.length).toBe(2);
       expect(patrolBoat.position.length).toBe(1);
+      console.log(
+        carrier.position,
+        battleship.position,
+        destroyer.position,
+        submarine.position,
+        patrolBoat.position
+      );
+    });
+    test("Gameboard randomlyPlace function does not overlap Ships", () => {
+      expect(
+        testBoard.data.board.filter((cell) => cell.hasShip === true).length
+      ).toBe(15);
     });
     const testBoard2 = Gameboard("shots fired");
     const testShip = Ship("test", 5);

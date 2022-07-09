@@ -12,7 +12,7 @@ const Gameboard = (player) => {
 
   const initBoard = () => {
     for (let i = 0; i < 100; i++) {
-      data.board.push({ hasShip: false, isHit: false });
+      data.board.push({ index: i, hasShip: false, isHit: false });
     }
   };
 
@@ -28,7 +28,9 @@ const Gameboard = (player) => {
   const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
 
   const checkEdges = (ship, num) => {
-    if (ship.vertical === false) {
+    if (data.board[num].hasShip === true) {
+      return false;
+    } else if (ship.vertical === false) {
       const edgeList = rightEdges.slice();
       edgeList.push(num);
       edgeList.sort((a, b) => a - b);
@@ -43,10 +45,7 @@ const Gameboard = (player) => {
   };
 
   const placeShip = (ship, startingPoint) => {
-    if (
-      ship.vertical === false &&
-      data.board[startingPoint].hasShip === false
-    ) {
+    if (ship.vertical === false) {
       if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
@@ -54,10 +53,7 @@ const Gameboard = (player) => {
           ship.position.push(startingPoint + i);
         }
       }
-    } else if (
-      ship.vertical === true &&
-      data.board[startingPoint].hasShip === false
-    ) {
+    } else if (ship.vertical === true) {
       if (checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
@@ -73,11 +69,10 @@ const Gameboard = (player) => {
       const isVertical = Math.round(Math.random());
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
       let randomSpot = Math.floor(Math.random() * 100);
-      let pass = true;
-      while (pass) {
+      while (arg.position.length === 0) {
+        console.log(data.board[randomSpot]);
         if (checkEdges(arg, randomSpot)) {
           placeShip(arg, randomSpot);
-          pass = false;
         } else {
           randomSpot = Math.floor(Math.random() * 100);
         }

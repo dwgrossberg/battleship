@@ -10,10 +10,24 @@ const displayController = (() => {
     const boardTwoDOM = document.getElementById("board-two");
     boardOne.forEach((cell) => {
       const div = document.createElement("div");
+      div.dataset.index = boardOne.indexOf(cell);
+      if (cell.hasShip === true) {
+        div.classList.add("hasShip");
+        div.classList.add(`${cell.shipType.name}`);
+      } else {
+        div.classList.add("noShip");
+      }
       boardOneDOM.appendChild(div);
     });
     boardTwo.forEach((cell) => {
       const div = document.createElement("div");
+      div.dataset.index = boardTwo.indexOf(cell);
+      if (cell.hasShip === true) {
+        div.classList.add("hasShip");
+        div.classList.add(`${cell.shipType.name}`);
+      } else {
+        div.classList.add("noShip");
+      }
       boardTwoDOM.appendChild(div);
     });
   };
