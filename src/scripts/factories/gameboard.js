@@ -77,7 +77,6 @@ const Gameboard = (player) => {
       while (pass) {
         if (checkEdges(arg, randomSpot)) {
           placeShip(arg, randomSpot);
-          console.log(arg);
           pass = false;
         } else {
           randomSpot = Math.floor(Math.random() * 100);

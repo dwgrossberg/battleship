@@ -61,15 +61,22 @@ body {
   justify-content: center;
   gap: 100px;
   margin-top: -100px;
-  #board-one {
+  div {
     width: 300px;
     height: 300px;
     background-color: $board-color;
-  }
-  #board-two {
-    width: 300px;
-    height: 300px;
-    background-color: $board-color;
+    display: grid;
+    grid-template: repeat(10, 30px) / repeat(10, 30px);
+    outline: 1px solid $highlight-color;
+    div {
+      outline: 0.3px solid $highlight-color;
+      height: 100%;
+      width: 100%;
+      &:hover {
+        background-color: $highlight-color;
+        cursor: pointer;
+      }
+    }
   }
 }
 
