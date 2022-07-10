@@ -7,6 +7,5 @@ import displayController from "../scripts/modules/displayControl.js";
 document.querySelector('[type="image/x-icon"]').href = favicon;
 document.getElementById("github-icon").src = githubIcon;
 
-gameController.startGame("player 1");
-
+gameController;
 displayController;

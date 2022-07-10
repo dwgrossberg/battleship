@@ -33,6 +33,10 @@ const displayController = (() => {
   };
   renderBoard();
 
+  const newGame = () => {
+    const newGameDOM = document.getElementById("new-game");
+  };
+
   return {};
 })();
 

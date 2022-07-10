@@ -17,9 +17,10 @@ const gameController = (() => {
     // Randomly place all Ships on each Gameboard
     humanBoard.randomlyPlace(humanBoard.data.ships);
     roboBoard.randomlyPlace(roboBoard.data.ships);
-
     return { humanBoard, roboBoard };
   };
+
+  startGame("player 1");
 
   return {
     startGame,

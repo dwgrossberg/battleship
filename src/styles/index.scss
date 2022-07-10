@@ -32,7 +32,7 @@ body {
   background-position: center bottom;
   font-family: $main-font;
   display: grid;
-  grid-template: 150px 1fr 75px / 1fr;
+  grid-template: 200px 75px 1fr 75px / 1fr;
 }
 
 .header {
@@ -55,8 +55,27 @@ body {
   }
 }
 
-.battle-boards {
+.player-info {
   grid-area: 2 / 1 / 3 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  font-family: $main-font;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 300px;
+    font-size: 14px;
+  }
+  .player-name {
+    font-size: 15px;
+  }
+}
+
+.battle-boards {
+  grid-area: 3 / 1 / 4 / 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +107,7 @@ body {
   display: flex;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  grid-area: 3 / 1 / 4 / 2;
+  grid-area: 4 / 1 / 5 / 2;
   .made-by {
     color: $background-color;
     display: flex;
