@@ -35,6 +35,8 @@ const displayController = (() => {
 
   const newGame = () => {
     const newGameDOM = document.getElementById("new-game");
+    newGameDOM.addEventListener("mousedown", gameType);
+    const gameType = () => {};
   };
 
   return {};
