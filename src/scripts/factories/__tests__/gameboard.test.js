@@ -88,7 +88,10 @@ describe("Gameboard Factory", () => {
       expect(testBoard.data.board[91].hasShip).toBe(false);
     });
     test("Gameboard will not place a Ship in a space with another Ship already there", () => {
+      carrier2.changeAxis("horizontal");
       testBoard.placeShip(patrolBoat, 54);
+      expect(testBoard.data.board[54].shipType).toBe(battleship);
+      testBoard.placeShip(carrier2, 52);
       expect(testBoard.data.board[54].shipType).toBe(battleship);
     });
   });

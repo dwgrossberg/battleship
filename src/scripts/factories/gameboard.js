@@ -27,10 +27,29 @@ const Gameboard = (player) => {
   const rightEdges = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
   const bottomEdges = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99];
 
+  const checkShips = (ship, num) => {
+    if (ship.vertical === false) {
+      for (let i = 0; i < ship.length; i++) {
+        if (data.board[num + i] && data.board[num + i].hasShip === true) {
+          return false;
+        }
+      }
+      return true;
+    } else if (ship.vertical === true) {
+      for (let i = 0; i < ship.length; i++) {
+        if (
+          data.board[num + i * 10] &&
+          data.board[num + i * 10].hasShip === true
+        ) {
+          return false;
+        }
+      }
+      return true;
+    }
+  };
+
   const checkEdges = (ship, num) => {
-    if (data.board[num].hasShip === true) {
-      return false;
-    } else if (ship.vertical === false) {
+    if (ship.vertical === false) {
       const edgeList = rightEdges.slice();
       edgeList.push(num);
       edgeList.sort((a, b) => a - b);
@@ -46,7 +65,7 @@ const Gameboard = (player) => {
 
   const placeShip = (ship, startingPoint) => {
     if (ship.vertical === false) {
-      if (checkEdges(ship, startingPoint)) {
+      if (checkShips(ship, startingPoint) && checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i].hasShip = true;
           data.board[startingPoint + i]["shipType"] = ship;
@@ -54,7 +73,7 @@ const Gameboard = (player) => {
         }
       }
     } else if (ship.vertical === true) {
-      if (checkEdges(ship, startingPoint)) {
+      if (checkShips(ship, startingPoint) && checkEdges(ship, startingPoint)) {
         for (let i = 0; i < ship.length; i++) {
           data.board[startingPoint + i * 10].hasShip = true;
           data.board[startingPoint + i * 10]["shipType"] = ship;
@@ -70,8 +89,7 @@ const Gameboard = (player) => {
       isVertical === 1 ? (arg.vertical = true) : (arg.vertical = false);
       let randomSpot = Math.floor(Math.random() * 100);
       while (arg.position.length === 0) {
-        console.log(data.board[randomSpot], checkEdges(arg, randomSpot));
-        if (checkEdges(arg, randomSpot)) {
+        if (checkShips(arg, randomSpot) && checkEdges(arg, randomSpot)) {
           placeShip(arg, randomSpot);
         } else {
           randomSpot = Math.floor(Math.random() * 100);
