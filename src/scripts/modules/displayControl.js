@@ -33,10 +33,27 @@ const displayController = (() => {
   };
   renderBoard();
 
+  const numOfPlayers = () => {
+    const checkbox = document.getElementById("players");
+    const slider = document.getElementsByClassName("slider")[0];
+    checkbox.addEventListener("input", () => {
+      if (checkbox.checked === true) {
+        slider.innerHTML = `<div class="one-player-logo"></div>
+                One Two Player
+                <div class="two-player-logo"></div>`;
+      } else {
+        slider.innerHTML = ` <div class="one-player-logo"></div>
+                One Player Two
+                <div class="two-player-logo"></div>`;
+      }
+    });
+  };
+  numOfPlayers();
+
   const newGame = () => {
     const newGameDOM = document.getElementById("new-game");
-    newGameDOM.addEventListener("mousedown", gameType);
-    const gameType = () => {};
+    newGameDOM.addEventListener("mousedown", gamePlayers);
+    const gamePlayers = () => {};
   };
 
   return {};

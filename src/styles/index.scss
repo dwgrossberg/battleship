@@ -49,6 +49,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-left: auto;
+    margin-top: 50px;
     font-size: 20px;
     z-index: 10;
     #new-game:hover,
@@ -77,6 +78,7 @@ body {
   display: inline-block;
   width: 150px;
   height: 34px;
+  margin-top: 5px;
   input {
     opacity: 0;
     width: 0;
@@ -106,8 +108,8 @@ body {
       left: 97px;
       bottom: 4px;
       background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
       border-radius: 7px;
     }
     .one-player-logo,
@@ -143,14 +145,43 @@ body {
   justify-content: center;
   gap: 100px;
   font-family: $main-font;
-  margin-top: 80px;
+  margin-top: 30px;
   div {
     display: flex;
-    flex-direction: column;
-    gap: 7px;
+    justify-content: space-between;
     width: 300px;
     font-size: 15px;
     line-height: 10px;
+  }
+  #player-one-name,
+  #player-two-name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 7px;
+  }
+  #player-one-name-input,
+  #player-two-name-input {
+    display: flex;
+    align-items: center;
+    background-color: #f8f1e8;
+    width: 70%;
+    height: 150%;
+    padding: 5px;
+    border-radius: 7px;
+    outline: 1px dotted $highlight-color;
+    z-index: 20;
+    cursor: text;
+  }
+  #player-one-ships,
+  #player-two-ships {
+    display: flex;
+    align-items: center;
+    width: 130px;
+  }
+  span {
+    font-family: $header-font;
+    font-size: 18px;
   }
 }
 
@@ -160,7 +191,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 100px;
-  margin-top: -80px;
+  margin-top: -150px;
   div {
     width: 300px;
     height: 300px;
