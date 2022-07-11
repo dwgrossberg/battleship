@@ -50,6 +50,27 @@ const displayController = (() => {
   };
   numOfPlayers();
 
+  const updatePlayerNames = () => {
+    const playerOneName = document.getElementById("player-one-name-input");
+    const playerTwoName = document.getElementById("player-two-name-input");
+    const config = {
+      attributes: true,
+      childList: true,
+      subtree: true,
+      characterData: true,
+    };
+    const callback = function (mutationList) {
+      for (const mutation of mutationList) {
+        //   try - catch - guard against html as well
+        console.log(mutation.target);
+      }
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(playerOneName, config);
+    observer.observe(playerTwoName, config);
+  };
+  updatePlayerNames();
+
   const newGame = () => {
     const newGameDOM = document.getElementById("new-game");
     newGameDOM.addEventListener("mousedown", gamePlayers);
