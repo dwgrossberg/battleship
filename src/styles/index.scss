@@ -169,11 +169,20 @@ body {
     height: 35px;
     padding: 5px;
     border-radius: 7px;
-    outline: 1px dotted $highlight-color;
     z-index: 20;
     cursor: text;
+  }
+  #player-two-name-input {
+    cursor: default;
+    outline: 1px solid $highlight-color;
     &:hover {
-      outline: 1.5px dotted $highlight-color;
+      outline: 2px dotted $highlight-color;
+    }
+  }
+  #player-one-name-input {
+    outline: 1px dotted $highlight-color;
+    &:hover {
+      outline: 2px dotted $highlight-color;
     }
   }
   #player-one-ships,
@@ -217,13 +226,12 @@ body {
 }
 
 .game-startup {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   gap: 60px;
   grid-area: 4 / 1 / 5 / 2;
   div {
-    height: 50px;
     border-radius: 7px;
     background-color: $highlight-color;
     box-shadow: 1px 1px $background-color;
@@ -233,21 +241,28 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+  #randomly-place-button,
+  #drag-and-drop-button {
+    width: 190px;
+    height: 40px;
     &:hover {
       background-color: $background-color;
       color: $highlight-color;
       box-shadow: 2px 2px $highlight-color;
     }
   }
-  #randomly-place-button,
-  #drag-and-drop-button {
-    width: 190px;
-  }
   #start-next-button {
     font-family: $header-font;
     font-size: 24px;
     text-shadow: 1px 1px $ship-color;
     width: 100px;
+    height: 50px;
+    &:hover {
+      background-color: $background-color;
+      color: $ship-color;
+      box-shadow: 2px 2px $highlight-color;
+    }
   }
 }
 

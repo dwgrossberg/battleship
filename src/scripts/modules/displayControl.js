@@ -7,6 +7,10 @@ const displayController = (() => {
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
+  const playerOneName = document.getElementById("player-one-name-input");
+  const playerTwoName = document.getElementById("player-two-name-input");
+  const gameStartup = document.getElementsByClassName("game-startup")[0];
+  const startNext = document.getElementById("start-next-button");
 
   const renderBoard = () => {
     boardOne.forEach((cell) => {
@@ -40,6 +44,7 @@ const displayController = (() => {
   const numOfPlayers = () => {
     checkbox.addEventListener("input", () => {
       if (checkbox.checked === true) {
+        playerTwoName.classList.add("two-player-name");
         slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
@@ -47,7 +52,13 @@ const displayController = (() => {
         playerTwoInfo.style.display = "";
         boardTwoDOM.style.opacity = 0.5;
         playerTwoInfo.style.opacity = 0.5;
+        startNext.innerText = "Next";
+        playerTwoName.contentEditable = "true";
+        playerTwoName.textContent = "Player2";
+        playerTwoName.style.cursor = "text";
+        playerTwoName.style.outline = "1px dotted $highligh-color";
       } else {
+        playerTwoName.classList.remove("two-player-name");
         slider.innerHTML = ` <div class="one-player-logo"></div>
                 One Player Two
                 <div class="two-player-logo"></div>`;
@@ -55,6 +66,10 @@ const displayController = (() => {
         playerTwoInfo.style.display = "none";
         boardTwoDOM.style.opacity = "";
         playerTwoInfo.style.opacity = "";
+        startNext.innerText = "Start!";
+        playerTwoName.textContent = "";
+        playerTwoName.style.cursor = "";
+        playerTwoName.style.outline = "";
       }
     });
   };
@@ -71,8 +86,6 @@ const displayController = (() => {
 
   // Log playerName changes to each Player Object
   const updatePlayerNames = () => {
-    const playerOneName = document.getElementById("player-one-name-input");
-    const playerTwoName = document.getElementById("player-two-name-input");
     const playerNames = [playerOneName, playerTwoName];
     playerNames.forEach((name) =>
       name.addEventListener("keydown", (e) => {
@@ -129,6 +142,7 @@ const displayController = (() => {
   const setupGame = () => {
     checkbox.checked = false;
     slider.style.display = "flex";
+    gameStartup.style.display = "flex";
     boardTwoDOM.style.display = "none";
     playerTwoInfo.style.display = "none";
   };
