@@ -50,9 +50,29 @@ const displayController = (() => {
   };
   numOfPlayers();
 
+  function textWidth(text, font) {
+    font = font || "18px Original Surfer";
+    var c = document.createElement("canvas");
+    var ctx = c.getContext("2d");
+    ctx.font = font;
+    return ctx.measureText(text).width;
+  }
+
   const updatePlayerNames = () => {
     const playerOneName = document.getElementById("player-one-name-input");
     const playerTwoName = document.getElementById("player-two-name-input");
+    const playerNames = [playerOneName, playerTwoName];
+    playerNames.forEach((name) =>
+      name.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        } else if (textWidth(e.target.textContent) >= 140) {
+          if (e.key !== "Backspace") {
+            e.preventDefault();
+          }
+        }
+      })
+    );
     const config = {
       attributes: true,
       childList: true,
@@ -61,8 +81,11 @@ const displayController = (() => {
     };
     const callback = function (mutationList) {
       for (const mutation of mutationList) {
-        //   try - catch - guard against html as well
-        console.log(mutation.target);
+        try {
+          console.log(mutation.target.textContent);
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
     const observer = new MutationObserver(callback);

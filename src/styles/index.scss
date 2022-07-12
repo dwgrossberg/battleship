@@ -151,7 +151,7 @@ body {
     justify-content: space-between;
     width: 300px;
     font-size: 15px;
-    line-height: 10px;
+    line-height: 35px;
   }
   #player-one-name,
   #player-two-name {
@@ -165,8 +165,8 @@ body {
     display: flex;
     align-items: center;
     background-color: #f8f1e8;
-    width: 70%;
-    height: 150%;
+    width: 150px;
+    height: 35px;
     padding: 5px;
     border-radius: 7px;
     outline: 1px dotted $highlight-color;
@@ -191,7 +191,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 100px;
-  margin-top: -150px;
+  margin-top: -130px;
   div {
     width: 300px;
     height: 300px;
