@@ -4,10 +4,11 @@ const displayController = (() => {
   const game = gameController.startGame("player 1");
   const boardOne = game.humanBoard.data.board;
   const boardTwo = game.roboBoard.data.board;
+  const boardOneDOM = document.getElementById("board-one");
+  const boardTwoDOM = document.getElementById("board-two");
+  const playerTwoInfo = document.getElementsByClassName("player-two")[0];
 
   const renderBoard = () => {
-    const boardOneDOM = document.getElementById("board-one");
-    const boardTwoDOM = document.getElementById("board-two");
     boardOne.forEach((cell) => {
       const div = document.createElement("div");
       div.dataset.index = boardOne.indexOf(cell);
@@ -34,18 +35,26 @@ const displayController = (() => {
   renderBoard();
 
   // Toggle button for number of players
+  const checkbox = document.getElementById("players");
+  const slider = document.getElementsByClassName("slider")[0];
   const numOfPlayers = () => {
-    const checkbox = document.getElementById("players");
-    const slider = document.getElementsByClassName("slider")[0];
     checkbox.addEventListener("input", () => {
       if (checkbox.checked === true) {
         slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
+        boardTwoDOM.style.display = "";
+        playerTwoInfo.style.display = "";
+        boardTwoDOM.style.opacity = 0.5;
+        playerTwoInfo.style.opacity = 0.5;
       } else {
         slider.innerHTML = ` <div class="one-player-logo"></div>
                 One Player Two
                 <div class="two-player-logo"></div>`;
+        boardTwoDOM.style.display = "none";
+        playerTwoInfo.style.display = "none";
+        boardTwoDOM.style.opacity = "";
+        playerTwoInfo.style.opacity = "";
       }
     });
   };
@@ -60,6 +69,7 @@ const displayController = (() => {
     return ctx.measureText(text).width;
   }
 
+  // Log playerName changes to each Player Object
   const updatePlayerNames = () => {
     const playerOneName = document.getElementById("player-one-name-input");
     const playerTwoName = document.getElementById("player-two-name-input");
@@ -90,7 +100,6 @@ const displayController = (() => {
               ? (player = game.humanBoard.data.player)
               : (player = game.roboBoard.data.player);
             player.playerInfo.name = mutation.target.textContent;
-            console.log(player, mutation.target.textContent);
           }
         } catch (err) {
           console.log(err);
@@ -103,13 +112,32 @@ const displayController = (() => {
   };
   updatePlayerNames();
 
-  const newGame = () => {
-    const newGameDOM = document.getElementById("new-game");
-    newGameDOM.addEventListener("mousedown", gamePlayers);
-    const gamePlayers = () => {};
+  const updateShipsLeft = () => {
+    const playerOneShipsLeft = document.getElementById("player-one-ships-left");
+    const playerTwoShipsLeft = document.getElementById("player-two-ships-left");
+    playerOneShipsLeft.textContent = game.humanBoard.data.ships.filter((ship) =>
+      ship.hits.includes(null)
+    ).length;
+    playerTwoShipsLeft.textContent = game.roboBoard.data.ships.filter((ship) =>
+      ship.hits.includes(null)
+    ).length;
+  };
+  updateShipsLeft();
+
+  // Start a new game when users click on the button
+  const newGameDOM = document.getElementById("new-game");
+  const setupGame = () => {
+    checkbox.checked = false;
+    slider.style.display = "flex";
+    boardTwoDOM.style.display = "none";
+    playerTwoInfo.style.display = "none";
   };
 
-  return {};
+  newGameDOM.addEventListener("mousedown", setupGame);
+
+  return {
+    updateShipsLeft,
+  };
 })();
 
 export default displayController;

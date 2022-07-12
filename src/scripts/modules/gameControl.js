@@ -20,7 +20,9 @@ const gameController = (() => {
     return { humanBoard, roboBoard };
   };
 
-  startGame("player 1");
+  const roboGame = () => {};
+
+  const twoPlayerGame = () => {};
 
   return {
     startGame,

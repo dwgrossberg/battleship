@@ -16,6 +16,7 @@ $main-font: "Lato", sans-serif;
 
 body {
   overflow: auto;
+  font-family: $main-font;
 }
 
 .container {
@@ -32,7 +33,7 @@ body {
   background-position: center bottom;
   font-family: $main-font;
   display: grid;
-  grid-template: 200px 50px 1fr 75px / 1fr;
+  grid-template: 200px 75px 1fr 100px 75px / 1fr;
 }
 
 .header {
@@ -85,7 +86,7 @@ body {
     height: 0;
   }
   .slider {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 5px;
@@ -145,7 +146,6 @@ body {
   justify-content: center;
   gap: 100px;
   font-family: $main-font;
-  margin-top: 30px;
   div {
     display: flex;
     justify-content: space-between;
@@ -194,7 +194,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 100px;
-  margin-top: -130px;
   div {
     width: 300px;
     height: 300px;
@@ -217,11 +216,46 @@ body {
   }
 }
 
+.game-startup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  grid-area: 4 / 1 / 5 / 2;
+  div {
+    height: 50px;
+    border-radius: 7px;
+    background-color: $highlight-color;
+    box-shadow: 1px 1px $background-color;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background-color: $background-color;
+      color: $highlight-color;
+      box-shadow: 2px 2px $highlight-color;
+    }
+  }
+  #randomly-place-button,
+  #drag-and-drop-button {
+    width: 190px;
+  }
+  #start-next-button {
+    font-family: $header-font;
+    font-size: 24px;
+    text-shadow: 1px 1px $ship-color;
+    width: 100px;
+  }
+}
+
 .footer {
   display: flex;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  grid-area: 4 / 1 / 5 / 2;
+  grid-area: 5 / 1 / 6 / 2;
   .made-by {
     color: $background-color;
     display: flex;
