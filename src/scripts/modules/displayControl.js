@@ -33,6 +33,7 @@ const displayController = (() => {
   };
   renderBoard();
 
+  // Toggle button for number of players
   const numOfPlayers = () => {
     const checkbox = document.getElementById("players");
     const slider = document.getElementsByClassName("slider")[0];
@@ -50,6 +51,7 @@ const displayController = (() => {
   };
   numOfPlayers();
 
+  // Find width of span textContent
   function textWidth(text, font) {
     font = font || "18px Original Surfer";
     var c = document.createElement("canvas");
@@ -82,7 +84,14 @@ const displayController = (() => {
     const callback = function (mutationList) {
       for (const mutation of mutationList) {
         try {
-          console.log(mutation.target.textContent);
+          if (mutation.target.textContent.length > 0) {
+            let player;
+            mutation.target.parentNode.id === "player-one-name-input"
+              ? (player = game.humanBoard.data.player)
+              : (player = game.roboBoard.data.player);
+            player.playerInfo.name = mutation.target.textContent;
+            console.log(player, mutation.target.textContent);
+          }
         } catch (err) {
           console.log(err);
         }

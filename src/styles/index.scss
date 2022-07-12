@@ -172,6 +172,9 @@ body {
     outline: 1px dotted $highlight-color;
     z-index: 20;
     cursor: text;
+    &:hover {
+      outline: 1.5px dotted $highlight-color;
+    }
   }
   #player-one-ships,
   #player-two-ships {
