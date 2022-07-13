@@ -6,6 +6,7 @@ const displayController = (() => {
   const boardTwo = game.roboBoard.data.board;
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
+  const playerOneInfo = document.getElementsByClassName("player-one")[0];
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const playerOneName = document.getElementById("player-one-name-input");
   const playerTwoName = document.getElementById("player-two-name-input");
@@ -13,7 +14,6 @@ const displayController = (() => {
   const startNext = document.getElementById("start-next-button");
 
   const renderBoard = (board, DOMelem) => {
-    console.log(board, typeof board);
     board.forEach((cell) => {
       const div = document.createElement("div");
       div.dataset.index = board.indexOf(cell);
@@ -41,7 +41,6 @@ const displayController = (() => {
   const numOfPlayers = () => {
     checkbox.addEventListener("input", () => {
       if (checkbox.checked === true) {
-        playerTwoName.classList.add("two-player-name");
         slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
@@ -51,9 +50,8 @@ const displayController = (() => {
         playerTwoInfo.style.opacity = 0.5;
         startNext.innerText = "Next";
         playerTwoName.textContent = "Player2";
-        playerTwoName.style.outline = "1px dotted $highligh-color";
+        playerTwoName.style.outline = "1px solid #6a7aac";
       } else {
-        playerTwoName.classList.remove("two-player-name");
         slider.innerHTML = ` <div class="one-player-logo"></div>
                 One Player Two
                 <div class="two-player-logo"></div>`;
@@ -151,13 +149,15 @@ const displayController = (() => {
       e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[1];
     const player2Info =
       e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[3];
-    if (player2Info.style.display === "none") {
-      console.log(player1Info, player2Info);
+    if (
+      player2Info.style.display === "none" ||
+      player2Info.style.opacity === "0.5"
+    ) {
       removeBoard(boardOneDOM);
       game.humanBoard.removeAllShips();
       game.humanBoard.randomlyPlace(game.humanBoard.data.ships);
       renderBoard(boardOne, boardOneDOM);
-    } else if (player1Info.style.display === "none") {
+    } else if (player1Info.style.opacity === "0.5") {
       removeBoard(boardTwoDOM);
       game.roboBoard.removeAllShips();
       game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
@@ -165,6 +165,28 @@ const displayController = (() => {
     }
   };
   randomlyPlaceButton.addEventListener("mousedown", randomlyPlaceShips);
+
+  const startNextButton = document.getElementById("start-next-button");
+  const gameStartNext = (e) => {
+    if (e.target.innerText === "Next") {
+      boardOneDOM.style.opacity = 0.5;
+      playerOneInfo.style.opacity = 0.5;
+      boardTwoDOM.style.opacity = "";
+      playerTwoInfo.style.opacity = "";
+      startNext.innerText = "Start!";
+      playerOneName.setAttribute("contentEditable", false);
+      playerOneName.style.cursor = "default";
+      playerOneName.style.outline = "1px solid #6a7aac";
+      playerTwoName.setAttribute("contentEditable", true);
+      playerTwoName.style.cursor = "text";
+      playerTwoName.style.outline = "";
+      Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+        item.classList.add("hideShip")
+      );
+    } else if (e.target.innerText === "Start!") {
+    }
+  };
+  startNextButton.addEventListener("mousedown", gameStartNext);
 
   return {
     updateShipsLeft,

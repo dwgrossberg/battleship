@@ -14,9 +14,6 @@ const gameController = (() => {
     // Create Gameboards for each Player
     const humanBoard = Gameboard(humanPlayer);
     const roboBoard = Gameboard(roboHuman);
-    // Randomly place all Ships on each Gameboard
-    // humanBoard.randomlyPlace(humanBoard.data.ships);
-    // roboBoard.randomlyPlace(roboBoard.data.ships);
     return { humanBoard, roboBoard };
   };
 

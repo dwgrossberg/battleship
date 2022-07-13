@@ -170,17 +170,8 @@ body {
     padding: 5px;
     border-radius: 7px;
     z-index: 20;
-    cursor: text;
-  }
-  #player-two-name-input {
-    cursor: default;
-    outline: 1px solid $highlight-color;
-    &:hover {
-      outline: 2px dotted $highlight-color;
-    }
-  }
-  #player-one-name-input {
     outline: 1px dotted $highlight-color;
+    cursor: text;
     &:hover {
       outline: 2px dotted $highlight-color;
     }
@@ -221,6 +212,9 @@ body {
     }
     .hasShip {
       background-color: $ship-color;
+    }
+    .hideShip {
+      background-color: $board-color;
     }
   }
 }
