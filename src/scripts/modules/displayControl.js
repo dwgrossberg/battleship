@@ -153,12 +153,13 @@ const displayController = (() => {
       e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[3];
     if (player2Info.style.display === "none") {
       console.log(player1Info, player2Info);
-
       removeBoard(boardOneDOM);
+      game.humanBoard.removeAllShips();
       game.humanBoard.randomlyPlace(game.humanBoard.data.ships);
       renderBoard(boardOne, boardOneDOM);
     } else if (player1Info.style.display === "none") {
       removeBoard(boardTwoDOM);
+      game.roboBoard.removeAllShips();
       game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
       renderBoard(boardTwo, boardTwoDOM);
     }

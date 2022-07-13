@@ -102,6 +102,7 @@ const Gameboard = (player) => {
     ship.position.forEach((index) => {
       data.board[index] = { hasShip: false, isHit: false };
     });
+    ship.resetPosition();
   };
 
   const removeAllShips = () => {

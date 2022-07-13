@@ -19,6 +19,9 @@ const Ship = (name, length) => {
     isSunk() {
       return this.hits.every((position) => (position === "hit" ? true : false));
     },
+    resetPosition() {
+      return (this.position = []);
+    },
   };
 };
 

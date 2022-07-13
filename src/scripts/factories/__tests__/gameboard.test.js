@@ -171,9 +171,8 @@ describe("Gameboard Factory", () => {
       const testBoard3 = Gameboard("one more");
       testBoard3.randomlyPlace(testBoard3.data.ships);
       testBoard3.removeAllShips();
-      console.log(testBoard3.data.ships);
       expect(
-        testBoard3.data.ships.forEach((ship) => ship.position.length === 0)
+        testBoard3.data.board.every((item) => item.hasShip === false)
       ).toBe(true);
     });
   });
