@@ -38,35 +38,33 @@ const displayController = (() => {
   // Toggle button for number of players
   const checkbox = document.getElementById("players");
   const slider = document.getElementsByClassName("slider")[0];
-  const numOfPlayers = () => {
-    checkbox.addEventListener("input", () => {
-      if (checkbox.checked === true) {
-        slider.innerHTML = `<div class="one-player-logo"></div>
+  checkbox.addEventListener("input", () => {
+    if (checkbox.checked === true) {
+      slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
-        boardTwoDOM.style.display = "";
-        playerTwoInfo.style.display = "";
-        boardTwoDOM.style.opacity = 0.5;
-        playerTwoInfo.style.opacity = 0.5;
-        startNext.innerText = "Next";
-        playerTwoName.textContent = "Player2";
-        playerTwoName.style.outline = "1px solid #6a7aac";
-      } else {
-        slider.innerHTML = ` <div class="one-player-logo"></div>
+      boardTwoDOM.style.display = "";
+      playerTwoInfo.style.display = "";
+      boardTwoDOM.style.opacity = 0.5;
+      playerTwoInfo.style.opacity = 0.5;
+      startNext.innerText = "Next";
+      playerTwoName.textContent = "Player2";
+      playerTwoName.style.cursor = "default";
+      playerTwoName.style.outline = "1px solid #6a7aac";
+    } else {
+      slider.innerHTML = ` <div class="one-player-logo"></div>
                 One Player Two
                 <div class="two-player-logo"></div>`;
-        boardTwoDOM.style.display = "none";
-        playerTwoInfo.style.display = "none";
-        boardTwoDOM.style.opacity = "";
-        playerTwoInfo.style.opacity = "";
-        startNext.innerText = "Start!";
-        playerTwoName.textContent = "";
-        playerTwoName.style.cursor = "";
-        playerTwoName.style.outline = "";
-      }
-    });
-  };
-  numOfPlayers();
+      boardTwoDOM.style.display = "none";
+      playerTwoInfo.style.display = "none";
+      boardTwoDOM.style.opacity = "";
+      playerTwoInfo.style.opacity = "";
+      startNext.innerText = "Start!";
+      playerTwoName.textContent = "roboPlayer";
+      playerTwoName.style.cursor = "";
+      playerTwoName.style.outline = "";
+    }
+  });
 
   // Find width of span textContent
   function textWidth(text, font) {
@@ -133,6 +131,12 @@ const displayController = (() => {
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
+    removeBoard(boardOneDOM);
+    game.humanBoard.removeAllShips();
+    renderBoard(boardOne, boardOneDOM);
+    removeBoard(boardTwoDOM);
+    game.roboBoard.removeAllShips();
+    renderBoard(boardTwo, boardTwoDOM);
     checkbox.checked = false;
     slider.style.display = "flex";
     gameStartup.style.display = "flex";
@@ -184,6 +188,27 @@ const displayController = (() => {
         item.classList.add("hideShip")
       );
     } else if (e.target.innerText === "Start!") {
+      gameStartup.style.display = "";
+      slider.style.display = "";
+      boardOneDOM.style.opacity = "";
+      playerOneInfo.style.opacity = "";
+      playerOneName.setAttribute("contentEditable", false);
+      playerOneName.style.outline = "1px solid #6a7aac";
+      playerOneName.style.cursor = "default";
+      boardTwoDOM.style.opacity = "";
+      playerTwoInfo.style.opacity = "";
+      playerTwoName.setAttribute("contentEditable", false);
+      playerTwoName.style.outline = "1px solid #6a7aac";
+      playerTwoName.style.cursor = "default";
+      boardTwoDOM.style.display = "";
+      playerTwoInfo.style.display = "";
+      if (checkbox.checked === false) {
+        playerTwoName.textContent = "roboPlayer";
+      } else if (checkbox.checked === true) {
+        Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+          item.classList.add("hideShip")
+        );
+      }
     }
   };
   startNextButton.addEventListener("mousedown", gameStartNext);
