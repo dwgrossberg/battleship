@@ -104,6 +104,10 @@ const Gameboard = (player) => {
     });
   };
 
+  const removeAllShips = () => {
+    data.ships.forEach((ship) => removeShip(ship));
+  };
+
   const receiveAttack = (num) => {
     data.board[num].hasShip === true
       ? (data.board[num].shipType.hits[
@@ -131,6 +135,7 @@ const Gameboard = (player) => {
     randomlyPlace,
     receiveAttack,
     allSunk,
+    removeAllShips,
   };
 };
 

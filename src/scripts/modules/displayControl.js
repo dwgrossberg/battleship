@@ -12,31 +12,28 @@ const displayController = (() => {
   const gameStartup = document.getElementsByClassName("game-startup")[0];
   const startNext = document.getElementById("start-next-button");
 
-  const renderBoard = () => {
-    boardOne.forEach((cell) => {
+  const renderBoard = (board, DOMelem) => {
+    console.log(board, typeof board);
+    board.forEach((cell) => {
       const div = document.createElement("div");
-      div.dataset.index = boardOne.indexOf(cell);
+      div.dataset.index = board.indexOf(cell);
       if (cell.hasShip === true) {
         div.classList.add("hasShip");
         div.classList.add(`${cell.shipType.name}`);
       } else {
         div.classList.add("noShip");
       }
-      boardOneDOM.appendChild(div);
-    });
-    boardTwo.forEach((cell) => {
-      const div = document.createElement("div");
-      div.dataset.index = boardTwo.indexOf(cell);
-      if (cell.hasShip === true) {
-        div.classList.add("hasShip");
-        div.classList.add(`${cell.shipType.name}`);
-      } else {
-        div.classList.add("noShip");
-      }
-      boardTwoDOM.appendChild(div);
+      DOMelem.appendChild(div);
     });
   };
-  renderBoard();
+  renderBoard(boardOne, boardOneDOM);
+  renderBoard(boardTwo, boardTwoDOM);
+
+  const removeBoard = (DOMelem) => {
+    while (DOMelem.firstChild) {
+      DOMelem.removeChild(DOMelem.lastChild);
+    }
+  };
 
   // Toggle button for number of players
   const checkbox = document.getElementById("players");
@@ -53,9 +50,7 @@ const displayController = (() => {
         boardTwoDOM.style.opacity = 0.5;
         playerTwoInfo.style.opacity = 0.5;
         startNext.innerText = "Next";
-        playerTwoName.contentEditable = "true";
         playerTwoName.textContent = "Player2";
-        playerTwoName.style.cursor = "text";
         playerTwoName.style.outline = "1px dotted $highligh-color";
       } else {
         playerTwoName.classList.remove("two-player-name");
@@ -146,8 +141,29 @@ const displayController = (() => {
     boardTwoDOM.style.display = "none";
     playerTwoInfo.style.display = "none";
   };
-
+  // Call setupGame to start a new game on page load
+  setupGame();
   newGameDOM.addEventListener("mousedown", setupGame);
+
+  const randomlyPlaceButton = document.getElementById("randomly-place-button");
+  const randomlyPlaceShips = (e) => {
+    const player1Info =
+      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[1];
+    const player2Info =
+      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[3];
+    if (player2Info.style.display === "none") {
+      console.log(player1Info, player2Info);
+
+      removeBoard(boardOneDOM);
+      game.humanBoard.randomlyPlace(game.humanBoard.data.ships);
+      renderBoard(boardOne, boardOneDOM);
+    } else if (player1Info.style.display === "none") {
+      removeBoard(boardTwoDOM);
+      game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
+      renderBoard(boardTwo, boardTwoDOM);
+    }
+  };
+  randomlyPlaceButton.addEventListener("mousedown", randomlyPlaceShips);
 
   return {
     updateShipsLeft,

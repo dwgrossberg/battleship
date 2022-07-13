@@ -131,13 +131,6 @@ describe("Gameboard Factory", () => {
       expect(destroyer.position.length).toBe(3);
       expect(submarine.position.length).toBe(2);
       expect(patrolBoat.position.length).toBe(1);
-      console.log(
-        carrier.position,
-        battleship.position,
-        destroyer.position,
-        submarine.position,
-        patrolBoat.position
-      );
     });
     test("Gameboard randomlyPlace function does not overlap Ships", () => {
       expect(
@@ -173,6 +166,15 @@ describe("Gameboard Factory", () => {
       expect(testBoard3.allSunk()).toBe(false);
       testBoard3.receiveAttack(53);
       expect(testBoard3.allSunk()).toBe(true);
+    });
+    test("Gameboard can remove all Ships from the board", () => {
+      const testBoard3 = Gameboard("one more");
+      testBoard3.randomlyPlace(testBoard3.data.ships);
+      testBoard3.removeAllShips();
+      console.log(testBoard3.data.ships);
+      expect(
+        testBoard3.data.ships.forEach((ship) => ship.position.length === 0)
+      ).toBe(true);
     });
   });
 });

@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import Ship from "../ship";
+import Gameboard from "../gameboard";
 
 describe("Ship Factory", () => {
   const testShip1 = Ship("a", 5);
@@ -33,6 +34,13 @@ describe("Ship Factory", () => {
     test("Ship hit function logs to hits array", () => {
       testShip1.hit(2);
       expect(testShip1.hits).toEqual([null, null, "hit", null, null]);
+    });
+    test("Ship hit function removes index from position array", () => {
+      const gameboard = Gameboard("test");
+      gameboard.placeShip(testShip1, 10);
+      testShip1.hit(2, 30);
+      console.log(testShip1.position);
+      expect(testShip1.position).toEqual([10, 20, 40, 50]);
     });
     test("isSunk function correctly identifies when Ship hits array is full", () => {
       testShip1.hit(0);

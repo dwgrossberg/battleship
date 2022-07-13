@@ -12,8 +12,9 @@ const Ship = (name, length) => {
         this.vertical = false;
       }
     },
-    hit(num) {
-      this.hits[num] = "hit";
+    hit(index, position) {
+      this.position.splice(this.position.indexOf(position), 1);
+      this.hits[index] = "hit";
     },
     isSunk() {
       return this.hits.every((position) => (position === "hit" ? true : false));
