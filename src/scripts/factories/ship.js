@@ -12,8 +12,8 @@ const Ship = (name, length) => {
         this.vertical = false;
       }
     },
-    hit(index, position) {
-      this.position.splice(this.position.indexOf(position), 1);
+    hit(position) {
+      const index = this.position.indexOf(position);
       this.hits[index] = "hit";
     },
     isSunk() {
