@@ -33,7 +33,7 @@ body {
   background-position: center bottom;
   font-family: $main-font;
   display: grid;
-  grid-template: 200px 75px 1fr 100px 75px / 1fr;
+  grid-template: 150px 75px 75px 1fr 75px 75px / 1fr;
 }
 
 .header {
@@ -71,6 +71,12 @@ body {
       }
     }
   }
+}
+
+.turn-signal {
+  grid-area: 2 / 1 / 3 / 2;
+  width: 100%;
+  height: 100%;
 }
 
 // Toggle number of players
@@ -140,7 +146,7 @@ body {
 }
 
 .player-info {
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 3 / 1 / 4 / 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,7 +195,7 @@ body {
 }
 
 .battle-boards {
-  grid-area: 3 / 1 / 4 / 2;
+  grid-area: 4 / 1 / 5 / 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +230,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 60px;
-  grid-area: 4 / 1 / 5 / 2;
+  grid-area: 5 / 1 / 6 / 2;
   div {
     border-radius: 7px;
     background-color: $highlight-color;
@@ -258,13 +264,33 @@ body {
       box-shadow: 2px 2px $highlight-color;
     }
   }
+  .info-missing {
+    position: relative;
+    &:after {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: absolute;
+      height: 35px;
+      width: 250px;
+      top: -39px;
+      border-radius: 7px;
+      padding: 0 20px;
+      content: "You must place all of your ships on the gameboard before continuing";
+      background-color: $ship-color;
+      font-family: $main-font;
+      font-size: 13px;
+      color: black;
+    }
+  }
 }
 
 .footer {
   display: flex;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  grid-area: 5 / 1 / 6 / 2;
+  grid-area: 6 / 1 / 7 / 2;
   .made-by {
     color: $background-color;
     display: flex;

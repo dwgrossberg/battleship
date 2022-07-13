@@ -139,6 +139,9 @@ const displayController = (() => {
     renderBoard(boardTwo, boardTwoDOM);
     checkbox.checked = false;
     slider.style.display = "flex";
+    slider.innerHTML = ` <div class="one-player-logo"></div>
+                One Player Two
+                <div class="two-player-logo"></div>`;
     gameStartup.style.display = "flex";
     boardTwoDOM.style.display = "none";
     playerTwoInfo.style.display = "none";
@@ -150,9 +153,12 @@ const displayController = (() => {
   const randomlyPlaceButton = document.getElementById("randomly-place-button");
   const randomlyPlaceShips = (e) => {
     const player1Info =
-      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[1];
+      e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1];
     const player2Info =
-      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[3];
+      e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[3];
+    console.log(player1Info, player2Info);
+    startNextButton.classList.remove("info-missing");
+
     if (
       player2Info.style.display === "none" ||
       player2Info.style.opacity === "0.5"
@@ -172,7 +178,19 @@ const displayController = (() => {
 
   const startNextButton = document.getElementById("start-next-button");
   const gameStartNext = (e) => {
-    if (e.target.innerText === "Next") {
+    if (
+      (e.target.innerText === "Next" &&
+        boardOne.every((item) => item.hasShip === false)) ||
+      (e.target.innerText === "Start!" &&
+        boardOne.every((item) => item.hasShip === false)) ||
+      (e.target.innerText === "Start!" &&
+        checkbox.checked === true &&
+        boardTwo.every((item) => item.hasShip === false))
+    ) {
+      startNextButton.classList.add("info-missing");
+      e.preventDefault(); // Prevent the game from starting when no Ships are on Board
+    } else if (e.target.innerText === "Next") {
+      startNextButton.classList.remove("info-missing");
       boardOneDOM.style.opacity = 0.5;
       playerOneInfo.style.opacity = 0.5;
       boardTwoDOM.style.opacity = "";
@@ -188,6 +206,7 @@ const displayController = (() => {
         item.classList.add("hideShip")
       );
     } else if (e.target.innerText === "Start!") {
+      startNextButton.classList.remove("info-missing");
       gameStartup.style.display = "";
       slider.style.display = "";
       boardOneDOM.style.opacity = "";
