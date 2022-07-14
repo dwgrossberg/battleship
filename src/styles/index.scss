@@ -145,6 +145,12 @@ body {
   }
 }
 
+.turn-signal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .player-info {
   grid-area: 3 / 1 / 4 / 2;
   display: flex;
@@ -200,6 +206,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 100px;
+  padding: 30px;
   div {
     width: 300px;
     height: 300px;

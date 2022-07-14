@@ -1,18 +1,22 @@
 import gameController from "./gameControl.js";
 
 const displayController = (() => {
-  const game = gameController.startGame("player 1");
+  const game = gameController.startGame("Jerry");
   const boardOne = game.humanBoard.data.board;
   const boardTwo = game.roboBoard.data.board;
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
+  const playerOne = game.humanBoard.data.player;
+  const playerTwo = game.roboBoard.data.player;
   const playerOneInfo = document.getElementsByClassName("player-one")[0];
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const playerOneName = document.getElementById("player-one-name-input");
   const playerTwoName = document.getElementById("player-two-name-input");
   const gameStartup = document.getElementsByClassName("game-startup")[0];
   const startNext = document.getElementById("start-next-button");
+  const turnSignal = document.getElementById("turn-signal-text");
 
+  // Display the gameboards
   const renderBoard = (board, DOMelem) => {
     board.forEach((cell) => {
       const div = document.createElement("div");
@@ -104,6 +108,7 @@ const displayController = (() => {
               ? (player = game.humanBoard.data.player)
               : (player = game.roboBoard.data.player);
             player.playerInfo.name = mutation.target.textContent;
+            displayTurn();
           }
         } catch (err) {
           console.log(err);
@@ -116,6 +121,7 @@ const displayController = (() => {
   };
   updatePlayerNames();
 
+  // Update player-info number of ships left
   const updateShipsLeft = () => {
     const playerOneShipsLeft = document.getElementById("player-one-ships-left");
     const playerTwoShipsLeft = document.getElementById("player-two-ships-left");
@@ -158,7 +164,6 @@ const displayController = (() => {
       e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[3];
     console.log(player1Info, player2Info);
     startNextButton.classList.remove("info-missing");
-
     if (
       player2Info.style.display === "none" ||
       player2Info.style.opacity === "0.5"
@@ -176,6 +181,7 @@ const displayController = (() => {
   };
   randomlyPlaceButton.addEventListener("mousedown", randomlyPlaceShips);
 
+  // Control the game setup for both one-player and two-player
   const startNextButton = document.getElementById("start-next-button");
   const gameStartNext = (e) => {
     if (
@@ -231,6 +237,17 @@ const displayController = (() => {
     }
   };
   startNextButton.addEventListener("mousedown", gameStartNext);
+
+  // Display whose turn it is
+  const displayTurn = () => {
+    if (gameStartup.style.display === "flex") {
+      //if the game is still being setup
+      playerOneInfo.style.opacity === ""
+        ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: place your ships on the board to start`)
+        : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: place your ships on the board to start`);
+    }
+  };
+  displayTurn();
 
   return {
     updateShipsLeft,
