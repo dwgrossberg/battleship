@@ -54,16 +54,17 @@ const Player = (name) => {
   };
 
   const roboPlay = (board, nextMove) => {
-    if (nextMove) {
+    let randomSpot = Math.floor(Math.random() * 100);
+    if (nextMove && nextMove.length > 0) {
       const nextBestMove =
         nextMove[Math.floor(Math.random() * nextMove.length)];
+      console.log(nextMove, nextBestMove);
       fireAway(board, nextBestMove);
       return {
         thisMove: nextBestMove,
         nextMove: findNextMove(board, nextBestMove),
       };
     } else {
-      let randomSpot = Math.floor(Math.random() * 100);
       let pass = true;
       while (pass) {
         if (

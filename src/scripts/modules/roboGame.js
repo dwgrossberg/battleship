@@ -1,7 +1,6 @@
 import displayController from "./displayControl";
 
 const roboGame = (() => {
-  const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
   const playerOneName = document.getElementById("player-one-name-input");
   const playerTwoName = document.getElementById("player-two-name-input");
@@ -10,7 +9,6 @@ const roboGame = (() => {
   const runGame = (game) => {
     const playerOne = game.humanBoard.data.player;
     const playerTwo = game.roboBoard.data.player;
-    const boardOne = game.humanBoard.data.board;
     const boardTwo = game.roboBoard.data.board;
     displayController.removeBoard(boardTwoDOM);
     game.roboBoard.removeAllShips();
@@ -40,7 +38,6 @@ const roboGame = (() => {
       turnSignal.removeAttribute("class");
       playerOneName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`;
-      //   displayController.displayTurn();
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
         div.addEventListener("mousedown", playerFire)
       );
@@ -52,11 +49,21 @@ const roboGame = (() => {
       turnSignal.removeAttribute("class");
       playerTwoName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`;
-      setTimeout(roboAttack, 1000);
+      setTimeout(roboAttack, 500);
     };
 
+    let nextRoboMove;
+
     const roboAttack = () => {
-      const roboMove = game.roboBoard.data.player.roboPlay(game.humanBoard);
+      console.log(nextRoboMove);
+      const roboMove = game.roboBoard.data.player.roboPlay(
+        game.humanBoard,
+        nextRoboMove
+      );
+      if (roboMove.nextMove) {
+        nextRoboMove = roboMove.nextMove;
+      }
+      console.log(roboMove);
       const boardPiece = document.querySelector(
         `[data-index='${roboMove.thisMove}']`
       );
@@ -71,16 +78,14 @@ const roboGame = (() => {
         turnSignal.innerText = "Miss, try again...";
         turnSignal.classList.add("miss");
       }
-      setTimeout(playerTurn, 1000);
+      setTimeout(playerTurn, 500);
     };
 
     const roboTurn = () => {
-      console.log(turnSignal.innerText);
-
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
         div.removeEventListener("mousedown", playerFire)
       );
-      setTimeout(roboFire, 1000);
+      setTimeout(roboFire, 500);
     };
   };
 
