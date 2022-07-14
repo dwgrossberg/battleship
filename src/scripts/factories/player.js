@@ -58,7 +58,10 @@ const Player = (name) => {
       const nextBestMove =
         nextMove[Math.floor(Math.random() * nextMove.length)];
       fireAway(board, nextBestMove);
-      return findNextMove(board, nextBestMove);
+      return {
+        thisMove: nextBestMove,
+        nextMove: findNextMove(board, nextBestMove),
+      };
     } else {
       let randomSpot = Math.floor(Math.random() * 100);
       let pass = true;
@@ -69,7 +72,10 @@ const Player = (name) => {
         ) {
           fireAway(board, randomSpot);
           pass = false;
-          return findNextMove(board, randomSpot);
+          return {
+            thisMove: randomSpot,
+            nextMove: findNextMove(board, randomSpot),
+          };
         } else {
           randomSpot = Math.floor(Math.random() * 100);
         }
@@ -80,6 +86,7 @@ const Player = (name) => {
   return {
     playerInfo,
     fireAway,
+    findNextMove,
     roboPlay,
   };
 };
