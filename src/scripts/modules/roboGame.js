@@ -55,7 +55,6 @@ const roboGame = (() => {
     let nextRoboMove;
 
     const roboAttack = () => {
-      console.log(nextRoboMove);
       const roboMove = game.roboBoard.data.player.roboPlay(
         game.humanBoard,
         nextRoboMove
@@ -63,7 +62,6 @@ const roboGame = (() => {
       if (roboMove.nextMove) {
         nextRoboMove = roboMove.nextMove;
       }
-      console.log(roboMove);
       const boardPiece = document.querySelector(
         `[data-index='${roboMove.thisMove}']`
       );
