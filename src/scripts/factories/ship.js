@@ -12,8 +12,8 @@ const Ship = (name, length) => {
         this.vertical = false;
       }
     },
-    hit(position) {
-      const index = this.position.indexOf(position);
+    hit(num) {
+      const index = this.position.indexOf(Number(num));
       this.hits[index] = "hit";
     },
     isSunk() {

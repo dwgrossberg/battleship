@@ -1,7 +1,6 @@
 const Player = (name) => {
   const playerInfo = {
     name: name,
-    // gameboard: [],
     shots: [],
   };
 

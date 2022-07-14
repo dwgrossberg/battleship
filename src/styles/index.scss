@@ -150,6 +150,14 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 16px;
+  .hit {
+    font-family: $header-font;
+    font-size: 24px;
+  }
+  .miss {
+    font-family: $header-font;
+    font-size: 24px;
+  }
 }
 
 .player-info {
@@ -220,7 +228,7 @@ body {
       height: 100%;
       width: 100%;
       &:hover {
-        background-color: white;
+        box-shadow: inset 1px 1px $highlight-color;
         cursor: pointer;
       }
     }
@@ -229,6 +237,12 @@ body {
     }
     .hideShip {
       background-color: $board-color;
+    }
+    .hit {
+      background-color: #e2958c;
+    }
+    .miss {
+      background-color: #8ce2c0;
     }
   }
 }

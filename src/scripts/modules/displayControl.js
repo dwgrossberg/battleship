@@ -134,7 +134,6 @@ const displayController = (() => {
       ship.hits.includes(null)
     ).length;
   };
-  updateShipsLeft();
 
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
@@ -173,6 +172,7 @@ const displayController = (() => {
       game.humanBoard.removeAllShips();
       game.humanBoard.randomlyPlace(game.humanBoard.data.ships);
       renderBoard(boardOne, boardOneDOM);
+      updateShipsLeft();
     } else if (player1Info.style.opacity === "0.5") {
       removeBoard(boardTwoDOM);
       game.roboBoard.removeAllShips();
@@ -262,6 +262,7 @@ const displayController = (() => {
     renderBoard,
     removeBoard,
     updateShipsLeft,
+    displayTurn,
   };
 })();
 

@@ -110,18 +110,11 @@ const Gameboard = (player) => {
   };
 
   const receiveAttack = (num) => {
-    data.board[num].hasShip === true
-      ? (data.board[num].shipType.hits[
-          data.board[num].shipType.position.indexOf(num)
-        ] = "hit")
-      : data.missedShots.push(num);
-    // If Ship hits array is full, remove it from the Gameboard
     if (data.board[num].hasShip === true) {
-      if (data.board[num].shipType.hits.every((item) => item === "hit")) {
-        removeShip(data.board[num].shipType);
-      }
+      data.board[num].shipType.hit(num);
       return true;
     } else {
+      data.missedShots.push(num);
       return false;
     }
   };

@@ -5,6 +5,7 @@ const roboGame = (() => {
   const boardTwoDOM = document.getElementById("board-two");
   const playerOneName = document.getElementById("player-one-name-input");
   const playerTwoName = document.getElementById("player-two-name-input");
+  const turnSignal = document.getElementById("turn-signal-text");
 
   const runGame = (game) => {
     const boardOne = game.humanBoard.data.board;
@@ -13,20 +14,40 @@ const roboGame = (() => {
     game.roboBoard.removeAllShips();
     game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
     displayController.renderBoard(boardTwo, boardTwoDOM);
-    let turn = true;
-    if (turn) {
+    // Array.from(boardTwoDOM.childNodes).forEach((div) =>
+    //   div.classList.add("hideShip")
+    // );
+
+    const playerTurn = () => {
       playerOneName.style.outline = "2px solid #e2c08c";
+      displayController.displayTurn();
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
         div.addEventListener("mousedown", () => {
+          turnSignal.removeAttribute("class");
           const index = div.getAttribute("data-index");
+          console.log(
+            index,
+            game.roboBoard.data.board,
+            game.roboBoard.data.board[index]
+          );
           game.roboBoard.receiveAttack(index);
-          console.log(game.roboBoard.data.board[index]);
+          if (game.roboBoard.data.board[index].hasShip === true) {
+            game.roboBoard.data.board[index].isHit = true;
+            div.classList.add("hit");
+            turnSignal.innerText = "HIT!";
+            turnSignal.classList.add("hit");
+            displayController.updateShipsLeft();
+          } else {
+            div.classList.add("miss");
+            turnSignal.innerText = "Miss, try again...";
+            turnSignal.classList.add("miss");
+          }
         })
       );
-    } else {
-      playerOneName.style.outline = "";
-      playerTwoName.style.outline = "2px solid #e2c08c";
-    }
+    };
+    playerTurn();
+
+    const roboTurn = () => {};
   };
 
   return {
