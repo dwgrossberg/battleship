@@ -1,7 +1,9 @@
-import gameController from "./gameControl.js";
+import Game from "../factories/game.js";
+import roboGame from "./roboGame.js";
+import twoPlayerGame from "./twoPlayerGame.js";
 
 const displayController = (() => {
-  const game = gameController.startGame("Jerry");
+  const game = Game("Jerry");
   const boardOne = game.humanBoard.data.board;
   const boardTwo = game.roboBoard.data.board;
   const boardOneDOM = document.getElementById("board-one");
@@ -162,7 +164,6 @@ const displayController = (() => {
       e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1];
     const player2Info =
       e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[3];
-    console.log(player1Info, player2Info);
     startNextButton.classList.remove("info-missing");
     if (
       player2Info.style.display === "none" ||
@@ -229,10 +230,14 @@ const displayController = (() => {
       playerTwoInfo.style.display = "";
       if (checkbox.checked === false) {
         playerTwoName.textContent = "roboPlayer";
+        // Call roboGame module
+        roboGame.runGame(game);
       } else if (checkbox.checked === true) {
         Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
           item.classList.add("hideShip")
         );
+        // Call twoPlayerGame module
+        twoPlayerGame.runGame(game);
       }
     }
   };
@@ -245,11 +250,17 @@ const displayController = (() => {
       playerOneInfo.style.opacity === ""
         ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: place your ships on the board to start`)
         : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: place your ships on the board to start`);
+    } else {
+      playerOneName.style.outline === "2px solid #e2c08c"
+        ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`)
+        : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`);
     }
   };
   displayTurn();
 
   return {
+    renderBoard,
+    removeBoard,
     updateShipsLeft,
   };
 })();
