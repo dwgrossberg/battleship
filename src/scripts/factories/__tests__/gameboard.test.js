@@ -154,17 +154,14 @@ describe("Gameboard Factory", () => {
       expect(testBoard2.data.missedShots).toContain(2);
     });
     const testBoard3 = Gameboard("sunk");
-    const sunkShip = Ship("sinker", 3);
+    testBoard3.randomlyPlace(testBoard3.data.ships);
     test("Gameboard can verify whether or not all Ships have been sunk", () => {
-      expect(testBoard3.allSunk()).toBe(true);
-      sunkShip.changeAxis("vertical");
-      testBoard3.placeShip(sunkShip, 33);
       expect(testBoard3.allSunk()).toBe(false);
-      testBoard3.receiveAttack(33);
-      expect(testBoard3.allSunk()).toBe(false);
-      testBoard3.receiveAttack(43);
-      expect(testBoard3.allSunk()).toBe(false);
-      testBoard3.receiveAttack(53);
+      testBoard3.data.ships.forEach((ship) => {
+        ship.position.forEach((position) => {
+          testBoard3.receiveAttack(position);
+        });
+      });
       expect(testBoard3.allSunk()).toBe(true);
     });
     test("Gameboard can remove all Ships from the board", () => {

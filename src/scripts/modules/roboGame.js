@@ -18,19 +18,25 @@ const roboGame = (() => {
     const playerFire = (e) => {
       turnSignal.removeAttribute("class");
       const index = e.target.getAttribute("data-index");
-      game.roboBoard.receiveAttack(index);
-      if (game.roboBoard.data.board[index].hasShip === true) {
-        game.roboBoard.data.board[index].isHit = true;
-        e.target.classList.add("hit");
-        turnSignal.innerText = "HIT!";
-        turnSignal.classList.add("hit");
-        displayController.updateShipsLeft();
+      if (game.roboBoard.data.board[index].isHit === true) {
+        e.preventDefault();
       } else {
-        e.target.classList.add("miss");
-        turnSignal.innerText = "Miss, try again...";
-        turnSignal.classList.add("miss");
+        game.roboBoard.receiveAttack(index);
+        if (game.roboBoard.data.board[index].hasShip === true) {
+          game.roboBoard.data.board[index].isHit = true;
+          e.target.classList.add("hit");
+          turnSignal.innerText = "HIT!";
+          turnSignal.classList.add("hit");
+          displayController.updateShipsLeft();
+        } else {
+          game.roboBoard.data.board[index].isHit = true;
+          e.target.classList.add("miss");
+          turnSignal.innerText = "Miss, try again...";
+          turnSignal.classList.add("miss");
+        }
+        endGame();
+        roboTurn();
       }
-      roboTurn();
     };
 
     const playerTurn = () => {
@@ -76,6 +82,7 @@ const roboGame = (() => {
         turnSignal.innerText = "Miss, try again...";
         turnSignal.classList.add("miss");
       }
+      endGame();
       setTimeout(playerTurn, 500);
     };
 
@@ -84,6 +91,15 @@ const roboGame = (() => {
         div.removeEventListener("mousedown", playerFire)
       );
       setTimeout(roboFire, 500);
+    };
+
+    const endGame = () => {
+      console.log(game.roboBoard.allSunk());
+      if (game.humanBoard.allSunk()) {
+        console.log("player1");
+      } else if (game.roboBoard.allSunk()) {
+        console.log("robo");
+      }
     };
   };
 

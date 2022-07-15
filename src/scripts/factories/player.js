@@ -12,8 +12,8 @@ const Player = (name) => {
 
   // Determine the next best move based on some logical assumptions about the game
   const findNextMove = (board, num) => {
+    const nextMoves = [];
     if (board.data.board[num].hasShip === true) {
-      const nextMoves = [];
       // Protect roboPlayer from making out-of-bound moves
       if (board.data.board[num - 1]) {
         if (
@@ -31,22 +31,6 @@ const Player = (name) => {
           nextMoves.push(num + 1);
         }
       }
-      if (board.data.board[num - 2]) {
-        if (
-          board.data.board[num - 2].hasShip === true &&
-          board.data.board[num - 2].isHit === false
-        ) {
-          nextMoves.push(num - 2);
-        }
-      }
-      if (board.data.board[num + 2]) {
-        if (
-          board.data.board[num + 2].hasShip === true &&
-          board.data.board[num + 2].isHit === false
-        ) {
-          nextMoves.push(num + 2);
-        }
-      }
       if (board.data.board[num - 10]) {
         if (
           board.data.board[num - 10].hasShip === true &&
@@ -61,22 +45,6 @@ const Player = (name) => {
           board.data.board[num + 10].isHit === false
         ) {
           nextMoves.push(num + 10);
-        }
-      }
-      if (board.data.board[num - 20]) {
-        if (
-          board.data.board[num - 20].hasShip === true &&
-          board.data.board[num - 20].isHit === false
-        ) {
-          nextMoves.push(num - 20);
-        }
-      }
-      if (board.data.board[num + 20]) {
-        if (
-          board.data.board[num + 20].hasShip === true &&
-          board.data.board[num + 20].isHit === false
-        ) {
-          nextMoves.push(num + 20);
         }
       }
       return nextMoves;

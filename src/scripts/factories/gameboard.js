@@ -120,7 +120,7 @@ const Gameboard = (player) => {
   };
 
   const allSunk = () => {
-    return data.board.every((space) => space.hasShip === false) ? true : false;
+    return data.ships.every((ship) => ship.isSunk() === true) ? true : false;
   };
 
   return {
