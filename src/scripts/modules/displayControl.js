@@ -135,9 +135,27 @@ const displayController = (() => {
     ).length;
   };
 
+  // Display whose turn it is
+  const displayTurn = () => {
+    if (gameStartup.style.display === "flex") {
+      //if the game is still being setup
+      playerOneInfo.style.opacity === ""
+        ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: place your ships on the board to start`)
+        : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: place your ships on the board to start`);
+    } else {
+      if (!game.humanBoard.allSunk() && !game.roboBoard.allSunk())
+        playerOneName.style.outline === "2px solid #e2c08c"
+          ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`)
+          : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`);
+    }
+  };
+
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
+    turnSignal.removeAttribute("class");
+    turnSignal.innerText = "";
+    displayTurn();
     removeBoard(boardOneDOM);
     game.humanBoard.removeAllShips();
     renderBoard(boardOne, boardOneDOM);
@@ -243,19 +261,6 @@ const displayController = (() => {
   };
   startNextButton.addEventListener("mousedown", gameStartNext);
 
-  // Display whose turn it is
-  const displayTurn = () => {
-    if (gameStartup.style.display === "flex") {
-      //if the game is still being setup
-      playerOneInfo.style.opacity === ""
-        ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: place your ships on the board to start`)
-        : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: place your ships on the board to start`);
-    } else {
-      playerOneName.style.outline === "2px solid #e2c08c"
-        ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`)
-        : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`);
-    }
-  };
   displayTurn();
 
   return {

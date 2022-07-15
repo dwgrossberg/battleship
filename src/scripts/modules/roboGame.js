@@ -35,11 +35,14 @@ const roboGame = (() => {
           turnSignal.classList.add("miss");
         }
         endGame();
-        roboTurn();
+        if (game.roboBoard.allSunk() === false) {
+          roboTurn();
+        }
       }
     };
 
     const playerTurn = () => {
+      console.log("hi");
       playerTwoName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerOneName.style.outline = "2px solid #e2c08c";
@@ -83,7 +86,9 @@ const roboGame = (() => {
         turnSignal.classList.add("miss");
       }
       endGame();
-      setTimeout(playerTurn, 500);
+      if (game.humanBoard.allSunk() === false) {
+        setTimeout(playerTurn, 500);
+      }
     };
 
     const roboTurn = () => {
@@ -95,10 +100,21 @@ const roboGame = (() => {
 
     const endGame = () => {
       console.log(game.roboBoard.allSunk());
-      if (game.humanBoard.allSunk()) {
-        console.log("player1");
-      } else if (game.roboBoard.allSunk()) {
-        console.log("robo");
+      if (game.roboBoard.allSunk()) {
+        Array.from(boardTwoDOM.childNodes).forEach((div) =>
+          div.removeEventListener("mousedown", playerFire)
+        );
+        playerOneName.style.outline = "";
+        playerTwoName.style.outline = "";
+        turnSignal.removeAttribute("class");
+        turnSignal.classList.add("winner");
+        turnSignal.innerText = `${playerOne.playerInfo.name} wins!!!!!`;
+      } else if (game.humanBoard.allSunk()) {
+        turnSignal.removeAttribute("class");
+        turnSignal.classList.add("winner");
+        turnSignal.innerText = `${playerTwo.playerInfo.name} wins!!!!!`;
+        playerOneName.style.outline = "";
+        playerTwoName.style.outline = "";
       }
     };
   };
