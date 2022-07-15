@@ -149,13 +149,17 @@ const displayController = (() => {
           : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`);
     }
   };
+  displayTurn();
 
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
-    turnSignal.removeAttribute("class");
-    turnSignal.innerText = "";
-    displayTurn();
+    playerOneName.classList.add("edit");
+    playerTwoName.classList.add("edit");
+    playerOneName.setAttribute("contentEditable", true);
+    playerTwoName.setAttribute("contentEditable", true);
+    playerOneName.style.outline = "1px dotted #6a7aac";
+    playerTwoName.style.outline = "1px dotted #6a7aac";
     removeBoard(boardOneDOM);
     game.humanBoard.removeAllShips();
     renderBoard(boardOne, boardOneDOM);
@@ -170,6 +174,8 @@ const displayController = (() => {
     gameStartup.style.display = "flex";
     boardTwoDOM.style.display = "none";
     playerTwoInfo.style.display = "none";
+    turnSignal.removeAttribute("class");
+    displayTurn();
   };
   // Call setupGame to start a new game on page load
   setupGame();
@@ -222,28 +228,30 @@ const displayController = (() => {
       playerTwoInfo.style.opacity = "";
       startNext.innerText = "Start!";
       playerOneName.setAttribute("contentEditable", false);
-      playerOneName.style.cursor = "default";
-      playerOneName.style.outline = "1px solid #6a7aac";
+      //   playerOneName.style.cursor = "default";
+      playerOneName.style.outline = "";
       playerTwoName.setAttribute("contentEditable", true);
-      playerTwoName.style.cursor = "text";
+      //   playerTwoName.style.cursor = "text";
       playerTwoName.style.outline = "";
       Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
         item.classList.add("hideShip")
       );
     } else if (e.target.innerText === "Start!") {
+      playerOneName.removeAttribute("class");
+      playerTwoName.removeAttribute("class");
       startNextButton.classList.remove("info-missing");
       gameStartup.style.display = "";
       slider.style.display = "";
       boardOneDOM.style.opacity = "";
       playerOneInfo.style.opacity = "";
       playerOneName.setAttribute("contentEditable", false);
-      playerOneName.style.outline = "1px solid #6a7aac";
-      playerOneName.style.cursor = "default";
+      playerOneName.style.outline = "";
+      //   playerOneName.style.cursor = "default";
       boardTwoDOM.style.opacity = "";
       playerTwoInfo.style.opacity = "";
       playerTwoName.setAttribute("contentEditable", false);
-      playerTwoName.style.outline = "1px solid #6a7aac";
-      playerTwoName.style.cursor = "default";
+      playerTwoName.style.outline = "";
+      //   playerTwoName.style.cursor = "default";
       boardTwoDOM.style.display = "";
       playerTwoInfo.style.display = "";
       if (checkbox.checked === false) {
@@ -260,8 +268,6 @@ const displayController = (() => {
     }
   };
   startNextButton.addEventListener("mousedown", gameStartNext);
-
-  displayTurn();
 
   return {
     renderBoard,

@@ -14,6 +14,9 @@ const roboGame = (() => {
     game.roboBoard.removeAllShips();
     game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
     displayController.renderBoard(boardTwo, boardTwoDOM);
+    Array.from(document.getElementById("board-two").childNodes).forEach(
+      (item) => item.classList.add("hideShip")
+    );
 
     const playerFire = (e) => {
       turnSignal.removeAttribute("class");
@@ -42,7 +45,6 @@ const roboGame = (() => {
     };
 
     const playerTurn = () => {
-      console.log("hi");
       playerTwoName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerOneName.style.outline = "2px solid #e2c08c";
@@ -99,7 +101,6 @@ const roboGame = (() => {
     };
 
     const endGame = () => {
-      console.log(game.roboBoard.allSunk());
       if (game.roboBoard.allSunk()) {
         Array.from(boardTwoDOM.childNodes).forEach((div) =>
           div.removeEventListener("mousedown", playerFire)

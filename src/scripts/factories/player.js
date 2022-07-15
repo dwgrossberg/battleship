@@ -58,7 +58,6 @@ const Player = (name) => {
     if (nextMove && nextMove.length > 0) {
       const nextBestMove =
         nextMove[Math.floor(Math.random() * nextMove.length)];
-      console.log(nextMove, nextBestMove);
       fireAway(board, nextBestMove);
       return {
         thisMove: nextBestMove,

@@ -196,10 +196,11 @@ body {
     padding: 5px;
     border-radius: 7px;
     z-index: 20;
-    outline: 1px dotted $highlight-color;
-    cursor: text;
+    outline: 1px solid $highlight-color;
+  }
+  .edit {
     &:hover {
-      outline: 2px dotted $highlight-color;
+      box-shadow: 1px 1px $highlight-color;
     }
   }
   #player-one-ships,
