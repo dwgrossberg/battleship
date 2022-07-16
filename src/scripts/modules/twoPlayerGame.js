@@ -10,93 +10,59 @@ const twoPlayerGame = (() => {
   const runGame = (game) => {
     const playerOne = game.humanBoard.data.player;
     const playerTwo = game.roboBoard.data.player;
-    const boardOne = game.humanBoard.data.board;
-    const boardTwo = game.roboBoard.data.board;
-    // displayController.removeBoard(boardTwoDOM);
-    // game.roboBoard.removeAllShips();
-    // game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
-    // displayController.renderBoard(boardTwo, boardTwoDOM);
+    const boardOne = game.humanBoard;
+    const boardTwo = game.roboBoard;
 
-    const playerFire = (e) => {
+    const playerFire = (e, player) => {
+      console.log(e);
       turnSignal.removeAttribute("class");
       const index = e.target.getAttribute("data-index");
-      if (game.roboBoard.data.board[index].isHit === true) {
+      let board;
+      player === playerOne ? (board = boardOne) : (board = boardTwo);
+      if (board.data.board[index].isHit === true) {
         e.preventDefault();
       } else {
-        game.roboBoard.receiveAttack(index);
-        if (game.roboBoard.data.board[index].hasShip === true) {
-          game.roboBoard.data.board[index].isHit = true;
+        board.receiveAttack(index);
+        if (board.data.board[index].hasShip === true) {
+          board.data.board[index].isHit = true;
           e.target.classList.add("hit");
           turnSignal.innerText = "HIT!";
           turnSignal.classList.add("hit");
           displayController.updateShipsLeft();
         } else {
-          game.roboBoard.data.board[index].isHit = true;
+          board.data.board[index].isHit = true;
           e.target.classList.add("miss");
           turnSignal.innerText = "Miss, try again...";
           turnSignal.classList.add("miss");
         }
         endGame();
-        if (game.roboBoard.allSunk() === false) {
-          roboTurn();
+        if (board.allSunk() === false) {
+          //   roboTurn();
         }
       }
     };
 
-    const playerTurn = () => {
+    const playerOneTurn = () => {
       playerTwoName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerOneName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`;
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
-        div.addEventListener("mousedown", playerFire)
+        div.addEventListener("mousedown", playerFire(playerOne))
       );
+      playerTwoTurn();
     };
-    playerTurn();
+    playerOneTurn();
 
-    const roboFire = () => {
+    const playerTwoTurn = () => {
       playerOneName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerTwoName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`;
-      setTimeout(roboAttack, 500);
-    };
-
-    let nextRoboMove;
-
-    const roboAttack = () => {
-      const roboMove = game.roboBoard.data.player.roboPlay(
-        game.humanBoard,
-        nextRoboMove
-      );
-      if (roboMove.nextMove) {
-        nextRoboMove = roboMove.nextMove;
-      }
-      const boardPiece = document.querySelector(
-        `[data-index='${roboMove.thisMove}']`
-      );
-      if (game.humanBoard.data.board[roboMove.thisMove].hasShip === true) {
-        game.humanBoard.data.board[roboMove.thisMove].isHit = true;
-        boardPiece.classList.add("hit");
-        turnSignal.innerText = "HIT!";
-        turnSignal.classList.add("hit");
-        displayController.updateShipsLeft();
-      } else {
-        boardPiece.classList.add("miss");
-        turnSignal.innerText = "Miss, try again...";
-        turnSignal.classList.add("miss");
-      }
-      endGame();
-      if (game.humanBoard.allSunk() === false) {
-        setTimeout(playerTurn, 500);
-      }
-    };
-
-    const roboTurn = () => {
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
-        div.removeEventListener("mousedown", playerFire)
+        div.addEventListener("mousedown", playerFire(playerTwo))
       );
-      setTimeout(roboFire, 500);
+      playerOneTurn();
     };
 
     const endGame = () => {

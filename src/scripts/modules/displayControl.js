@@ -233,9 +233,9 @@ const displayController = (() => {
       playerTwoName.setAttribute("contentEditable", true);
       //   playerTwoName.style.cursor = "text";
       playerTwoName.style.outline = "";
-      Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
-        item.classList.add("hideShip")
-      );
+      //   Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+      //     item.classList.add("hideShip")
+      //   );
     } else if (e.target.innerText === "Start!") {
       playerOneName.removeAttribute("class");
       playerTwoName.removeAttribute("class");
@@ -259,9 +259,9 @@ const displayController = (() => {
         // Call roboGame module
         roboGame.runGame(game);
       } else if (checkbox.checked === true) {
-        Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
-          item.classList.add("hideShip")
-        );
+        // Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+        //   item.classList.add("hideShip")
+        // );
         // Call twoPlayerGame module
         twoPlayerGame.runGame(game);
       }
