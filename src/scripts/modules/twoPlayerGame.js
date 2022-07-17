@@ -13,74 +13,106 @@ const twoPlayerGame = (() => {
     const boardOne = game.humanBoard;
     const boardTwo = game.roboBoard;
 
-    const playerFire = (e, player) => {
+    const playerOneFire = (e) => {
       console.log(e);
       turnSignal.removeAttribute("class");
       const index = e.target.getAttribute("data-index");
-      let board;
-      player === playerOne ? (board = boardOne) : (board = boardTwo);
-      if (board.data.board[index].isHit === true) {
+      if (boardTwo.data.board[index].isHit === true) {
         e.preventDefault();
       } else {
-        board.receiveAttack(index);
-        if (board.data.board[index].hasShip === true) {
-          board.data.board[index].isHit = true;
+        boardTwo.receiveAttack(index);
+        if (boardTwo.data.board[index].hasShip === true) {
+          boardTwo.data.board[index].isHit = true;
           e.target.classList.add("hit");
           turnSignal.innerText = "HIT!";
           turnSignal.classList.add("hit");
           displayController.updateShipsLeft();
         } else {
-          board.data.board[index].isHit = true;
+          boardTwo.data.board[index].isHit = true;
           e.target.classList.add("miss");
           turnSignal.innerText = "Miss, try again...";
           turnSignal.classList.add("miss");
         }
         endGame();
-        if (board.allSunk() === false) {
-          //   roboTurn();
+        if (boardTwo.allSunk() === false) {
+          playerTwoTurn();
         }
       }
     };
 
     const playerOneTurn = () => {
+      Array.from(boardOneDOM.childNodes).forEach((div) =>
+        div.removeEventListener("mousedown", playerTwoFire)
+      );
       playerTwoName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerOneName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`;
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
-        div.addEventListener("mousedown", playerFire(playerOne))
+        div.addEventListener("mousedown", playerOneFire)
       );
-      playerTwoTurn();
     };
     playerOneTurn();
 
+    const playerTwoFire = (e) => {
+      console.log(e);
+      turnSignal.removeAttribute("class");
+      const index = e.target.getAttribute("data-index");
+      if (boardOne.data.board[index].isHit === true) {
+        e.preventDefault();
+      } else {
+        boardOne.receiveAttack(index);
+        if (boardOne.data.board[index].hasShip === true) {
+          boardOne.data.board[index].isHit = true;
+          e.target.classList.add("hit");
+          turnSignal.innerText = "HIT!";
+          turnSignal.classList.add("hit");
+          displayController.updateShipsLeft();
+        } else {
+          boardOne.data.board[index].isHit = true;
+          e.target.classList.add("miss");
+          turnSignal.innerText = "Miss, try again...";
+          turnSignal.classList.add("miss");
+        }
+        endGame();
+        if (boardOne.allSunk() === false) {
+          playerOneTurn();
+        }
+      }
+    };
+
     const playerTwoTurn = () => {
+      Array.from(boardTwoDOM.childNodes).forEach((div) =>
+        div.removeEventListener("mousedown", playerOneFire)
+      );
       playerOneName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerTwoName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`;
-      Array.from(boardTwoDOM.childNodes).forEach((div) =>
-        div.addEventListener("mousedown", playerFire(playerTwo))
+      Array.from(boardOneDOM.childNodes).forEach((div) =>
+        div.addEventListener("mousedown", playerTwoFire)
       );
-      playerOneTurn();
     };
 
     const endGame = () => {
-      if (game.roboBoard.allSunk()) {
+      if (boardTwo.allSunk()) {
         Array.from(boardTwoDOM.childNodes).forEach((div) =>
-          div.removeEventListener("mousedown", playerFire)
+          div.removeEventListener("mousedown", playerOneFire)
         );
-        playerOneName.style.outline = "";
+        playerOneName.style.outline = "2px solid #e2c08c";
         playerTwoName.style.outline = "";
         turnSignal.removeAttribute("class");
         turnSignal.classList.add("winner");
         turnSignal.innerText = `${playerOne.playerInfo.name} wins!!!!!`;
-      } else if (game.humanBoard.allSunk()) {
+      } else if (boardOne.allSunk()) {
+        Array.from(boardOneDOM.childNodes).forEach((div) =>
+          div.removeEventListener("mousedown", playerTwoFire)
+        );
         turnSignal.removeAttribute("class");
         turnSignal.classList.add("winner");
         turnSignal.innerText = `${playerTwo.playerInfo.name} wins!!!!!`;
         playerOneName.style.outline = "";
-        playerTwoName.style.outline = "";
+        playerTwoName.style.outline = "2px solid #e2c08c";
       }
     };
   };

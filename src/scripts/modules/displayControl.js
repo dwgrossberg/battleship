@@ -228,10 +228,8 @@ const displayController = (() => {
       playerTwoInfo.style.opacity = "";
       startNext.innerText = "Start!";
       playerOneName.setAttribute("contentEditable", false);
-      //   playerOneName.style.cursor = "default";
       playerOneName.style.outline = "";
       playerTwoName.setAttribute("contentEditable", true);
-      //   playerTwoName.style.cursor = "text";
       playerTwoName.style.outline = "";
       //   Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
       //     item.classList.add("hideShip")
@@ -246,12 +244,10 @@ const displayController = (() => {
       playerOneInfo.style.opacity = "";
       playerOneName.setAttribute("contentEditable", false);
       playerOneName.style.outline = "";
-      //   playerOneName.style.cursor = "default";
       boardTwoDOM.style.opacity = "";
       playerTwoInfo.style.opacity = "";
       playerTwoName.setAttribute("contentEditable", false);
       playerTwoName.style.outline = "";
-      //   playerTwoName.style.cursor = "default";
       boardTwoDOM.style.display = "";
       playerTwoInfo.style.display = "";
       if (checkbox.checked === false) {

@@ -105,7 +105,7 @@ const roboGame = (() => {
         Array.from(boardTwoDOM.childNodes).forEach((div) =>
           div.removeEventListener("mousedown", playerFire)
         );
-        playerOneName.style.outline = "";
+        playerOneName.style.outline = "2px solid #e2c08c";
         playerTwoName.style.outline = "";
         turnSignal.removeAttribute("class");
         turnSignal.classList.add("winner");
@@ -115,7 +115,7 @@ const roboGame = (() => {
         turnSignal.classList.add("winner");
         turnSignal.innerText = `${playerTwo.playerInfo.name} wins!!!!!`;
         playerOneName.style.outline = "";
-        playerTwoName.style.outline = "";
+        playerTwoName.style.outline = "2px solid #e2c08c";
       }
     };
   };
