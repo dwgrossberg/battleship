@@ -103,6 +103,9 @@ const Gameboard = (player) => {
       data.board[index] = { hasShip: false, isHit: false };
     });
     ship.resetPosition();
+    ship.resetHits();
+    data.shipsLeft = false;
+    data.missedShots = [];
   };
 
   const removeAllShips = () => {

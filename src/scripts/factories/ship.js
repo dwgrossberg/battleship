@@ -22,6 +22,9 @@ const Ship = (name, length) => {
     resetPosition() {
       return (this.position = []);
     },
+    resetHits() {
+      this.hits = Array(this.length).fill(null);
+    },
   };
 };
 

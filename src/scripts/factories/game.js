@@ -13,7 +13,12 @@ const Game = (player1, player2) => {
   // Create Gameboards for each Player
   const humanBoard = Gameboard(humanPlayer);
   const roboBoard = Gameboard(roboHuman);
-  return { humanBoard, roboBoard };
+  const reset = () => {
+    humanBoard.removeAllShips();
+    humanBoard.removeAllShips();
+  };
+  // Reset Game
+  return { humanBoard, roboBoard, reset };
 };
 
 export default Game;

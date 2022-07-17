@@ -6,10 +6,10 @@ const displayController = (() => {
   const game = Game("Jerry");
   const boardOne = game.humanBoard.data.board;
   const boardTwo = game.roboBoard.data.board;
-  const boardOneDOM = document.getElementById("board-one");
-  const boardTwoDOM = document.getElementById("board-two");
   const playerOne = game.humanBoard.data.player;
   const playerTwo = game.roboBoard.data.player;
+  const boardOneDOM = document.getElementById("board-one");
+  const boardTwoDOM = document.getElementById("board-two");
   const playerOneInfo = document.getElementsByClassName("player-one")[0];
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const playerOneName = document.getElementById("player-one-name-input");
@@ -154,6 +154,8 @@ const displayController = (() => {
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
+    // Reset Game including Gameboards and Ships
+    game.reset();
     playerOneName.classList.add("edit");
     playerTwoName.classList.add("edit");
     playerOneName.setAttribute("contentEditable", true);
