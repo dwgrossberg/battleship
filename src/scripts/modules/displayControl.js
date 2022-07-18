@@ -18,7 +18,7 @@ const displayController = (() => {
   const startNext = document.getElementById("start-next-button");
   const turnSignal = document.getElementById("turn-signal-text");
 
-  // Display the gameboards
+  // Display the Gameboards
   const renderBoard = (board, DOMelem) => {
     board.forEach((cell) => {
       const div = document.createElement("div");
@@ -55,6 +55,7 @@ const displayController = (() => {
       playerTwoInfo.style.opacity = 0.5;
       startNext.innerText = "Next";
       playerTwoName.textContent = "Player2";
+      game.roboBoard.data.player.playerInfo.name = "Player2";
       playerTwoName.style.cursor = "default";
       playerTwoName.style.outline = "1px solid #6a7aac";
     } else {
@@ -154,8 +155,10 @@ const displayController = (() => {
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
-    // Reset Game including Gameboards and Ships
+    // Reset Game Objects
     game.reset();
+    document.getElementsByClassName("player-one-ready")[0].style.display = "";
+    document.getElementsByClassName("player-two-ready")[0].style.display = "";
     playerOneName.classList.add("edit");
     playerTwoName.classList.add("edit");
     playerOneName.setAttribute("contentEditable", true);
@@ -233,9 +236,9 @@ const displayController = (() => {
       playerOneName.style.outline = "";
       playerTwoName.setAttribute("contentEditable", true);
       playerTwoName.style.outline = "";
-      //   Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
-      //     item.classList.add("hideShip")
-      //   );
+      Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+        item.classList.add("hideShip")
+      );
     } else if (e.target.innerText === "Start!") {
       playerOneName.removeAttribute("class");
       playerTwoName.removeAttribute("class");
@@ -257,9 +260,9 @@ const displayController = (() => {
         // Call roboGame module
         roboGame.runGame(game);
       } else if (checkbox.checked === true) {
-        // Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
-        //   item.classList.add("hideShip")
-        // );
+        Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
+          item.classList.add("hideShip")
+        );
         // Call twoPlayerGame module
         twoPlayerGame.runGame(game);
       }
