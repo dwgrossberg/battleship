@@ -12,37 +12,38 @@ const Player = (name) => {
 
   // Determine the next best move based on some logical assumptions about the game
   const findNextMove = (board, num) => {
-    const nextMoves = [];
+    let nextMoves = [];
+    nextMoves = [];
     if (board.data.board[num].hasShip === true) {
       // Protect roboPlayer from making out-of-bound moves
       if (board.data.board[num - 1]) {
         if (
-          board.data.board[num - 1].hasShip === true &&
-          board.data.board[num - 1].isHit === false
+          board.data.board[num - 1].isHit === false &&
+          board.data.board[num - 1].hasShip === true
         ) {
           nextMoves.push(num - 1);
         }
       }
       if (board.data.board[num + 1]) {
         if (
-          board.data.board[num + 1].hasShip === true &&
-          board.data.board[num + 1].isHit === false
+          board.data.board[num + 1].isHit === false &&
+          board.data.board[num + 1].hasShip === true
         ) {
           nextMoves.push(num + 1);
         }
       }
       if (board.data.board[num - 10]) {
         if (
-          board.data.board[num - 10].hasShip === true &&
-          board.data.board[num - 10].isHit === false
+          board.data.board[num - 10].isHit === false &&
+          board.data.board[num - 10].hasShip === true
         ) {
           nextMoves.push(num - 10);
         }
       }
       if (board.data.board[num + 10]) {
         if (
-          board.data.board[num + 10].hasShip === true &&
-          board.data.board[num + 10].isHit === false
+          board.data.board[num + 10].isHit === false &&
+          board.data.board[num + 10].hasShip === true
         ) {
           nextMoves.push(num + 10);
         }
@@ -59,6 +60,7 @@ const Player = (name) => {
       const nextBestMove =
         nextMove[Math.floor(Math.random() * nextMove.length)];
       fireAway(board, nextBestMove);
+      console.log(nextMove, nextBestMove);
       return {
         thisMove: nextBestMove,
         nextMove: findNextMove(board, nextBestMove),
@@ -67,6 +69,7 @@ const Player = (name) => {
       let pass = true;
       while (pass) {
         if (
+          board.data.board[randomSpot] &&
           board.data.board[randomSpot].isHit === false &&
           !playerInfo.shots.includes((item) => item.index)
         ) {

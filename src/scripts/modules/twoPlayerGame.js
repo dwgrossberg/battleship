@@ -15,6 +15,10 @@ const twoPlayerGame = (() => {
     const boardOne = game.humanBoard;
     const boardTwo = game.roboBoard;
 
+    const playerOneNotReady = () => {
+      boardTwoDOM.classList.add("player-not-ready");
+    };
+
     const playerOneTurn = () => {
       playerTwoName.style.outline = "";
       turnSignal.removeAttribute("class");
@@ -22,19 +26,19 @@ const twoPlayerGame = (() => {
       // Display playerNext button
       document.getElementsByClassName("player-one-ready")[0].style.display =
         "flex";
+      boardTwoDOM.addEventListener("mousedown", playerOneNotReady);
     };
     playerOneTurn();
 
     const playerOneReady = () => {
+      boardTwoDOM.removeEventListener("mousedown", playerOneNotReady);
+      boardTwoDOM.classList.remove("player-not-ready");
       Array.from(boardOneDOM.childNodes).forEach((div) => {
         if (Array.from(div.classList).includes("hideShip")) {
           div.classList.remove("hideShip");
         }
       });
       document.getElementsByClassName("player-one-ready")[0].style.display = "";
-      Array.from(boardOneDOM.childNodes).forEach((div) =>
-        div.removeEventListener("mousedown", playerTwoFire)
-      );
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
         div.addEventListener("mousedown", playerOneFire)
       );
@@ -45,7 +49,6 @@ const twoPlayerGame = (() => {
       Array.from(document.getElementsByClassName("hasShip")).forEach((item) =>
         item.classList.add("hideShip")
       );
-      turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: fire away!`;
       turnSignal.removeAttribute("class");
       const index = e.target.getAttribute("data-index");
       if (boardTwo.data.board[index].isHit === true) {
@@ -69,27 +72,33 @@ const twoPlayerGame = (() => {
           playerTwoTurn();
         }
       }
+      Array.from(boardTwoDOM.childNodes).forEach((div) =>
+        div.removeEventListener("mousedown", playerOneFire)
+      );
+    };
+
+    const playerTwoNotReady = () => {
+      boardOneDOM.classList.add("player-not-ready");
     };
 
     const playerTwoTurn = () => {
       playerOneName.style.outline = "";
       turnSignal.removeAttribute("class");
       playerTwoName.style.outline = "2px solid #e2c08c";
-      turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`;
       document.getElementsByClassName("player-two-ready")[0].style.display =
         "flex";
+      boardOneDOM.addEventListener("mousedown", playerTwoNotReady);
     };
 
     const playerTwoReady = () => {
+      boardOneDOM.removeEventListener("mousedown", playerTwoNotReady);
+      boardOneDOM.classList.remove("player-not-ready");
       Array.from(boardTwoDOM.childNodes).forEach((div) => {
         if (Array.from(div.classList).includes("hideShip")) {
           div.classList.remove("hideShip");
         }
       });
       document.getElementsByClassName("player-two-ready")[0].style.display = "";
-      Array.from(boardTwoDOM.childNodes).forEach((div) =>
-        div.removeEventListener("mousedown", playerOneFire)
-      );
       Array.from(boardOneDOM.childNodes).forEach((div) =>
         div.addEventListener("mousedown", playerTwoFire)
       );
@@ -123,6 +132,9 @@ const twoPlayerGame = (() => {
           playerOneTurn();
         }
       }
+      Array.from(boardOneDOM.childNodes).forEach((div) =>
+        div.removeEventListener("mousedown", playerTwoFire)
+      );
     };
 
     const endGame = () => {

@@ -253,6 +253,29 @@ body {
   }
 }
 
+.player-not-ready,
+.info-missing {
+  position: relative;
+  &:after {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    height: 35px;
+    width: 250px;
+    bottom: -43px;
+    left: 5px;
+    border-radius: 7px;
+    padding: 0 20px;
+    content: "Hit the 'Ready' button below to reveal your ships and fire at your opponent";
+    background-color: $ship-color;
+    font-family: $main-font;
+    font-size: 13px;
+    color: black;
+  }
+}
+
 .game-startup,
 .player-one-ready,
 .player-two-ready {
@@ -295,23 +318,11 @@ body {
     }
   }
   .info-missing {
-    position: relative;
     &:after {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: absolute;
-      height: 35px;
-      width: 250px;
       top: -39px;
-      border-radius: 7px;
-      padding: 0 20px;
+      left: auto;
+
       content: "You must place all of your ships on the gameboard before continuing";
-      background-color: $ship-color;
-      font-family: $main-font;
-      font-size: 13px;
-      color: black;
     }
   }
 }
