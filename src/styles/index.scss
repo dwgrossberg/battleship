@@ -7,6 +7,7 @@ $ship-color: #e2c08c;
 $highlight-color: #6a7aac;
 $header-font: "Original Surfer", "cursive";
 $main-font: "Lato", sans-serif;
+$small: 700px;
 
 * {
   padding: 0;
@@ -17,6 +18,7 @@ $main-font: "Lato", sans-serif;
 body {
   overflow: auto;
   font-family: $main-font;
+  max-width: 500px;
 }
 
 .container {
@@ -321,7 +323,6 @@ body {
     &:after {
       top: -39px;
       left: auto;
-
       content: "You must place all of your ships on the gameboard before continuing";
     }
   }
@@ -370,6 +371,47 @@ body {
     }
     img:hover {
       transform: rotate(360deg) scale(1.2);
+    }
+  }
+}
+
+@media screen and (max-width: $small) {
+  .turn-signal {
+    font-size: 18px;
+  }
+  .player-info {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 370px;
+    margin-top: 20px;
+  }
+  .battle-boards {
+    flex-direction: column;
+    gap: 80px;
+    margin-bottom: 90px;
+  }
+  .game-startup {
+    flex-direction: column;
+    max-width: $small;
+    gap: 10px;
+    margin-top: -120px;
+  }
+  #randomly-place-button,
+  #drag-and-drop-button,
+  #start-next-button {
+    font-size: 14px;
+  }
+  .player-one-ready,
+  .player-two-ready {
+    margin-top: -120px;
+  }
+  .info-missing {
+    &:after {
+      top: 100px;
+    }
+  }
+  .player-not-ready {
+    &:after {
     }
   }
 }

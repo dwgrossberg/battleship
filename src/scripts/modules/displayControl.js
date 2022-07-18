@@ -155,6 +155,8 @@ const displayController = (() => {
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
+    boardOneDOM.classList.remove("player-not-ready");
+    boardTwoDOM.classList.remove("player-not-ready");
     // Reset Game Objects
     game.reset();
     document.getElementsByClassName("player-one-ready")[0].style.display = "";
