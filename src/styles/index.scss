@@ -7,7 +7,8 @@ $ship-color: #e2c08c;
 $highlight-color: #6a7aac;
 $header-font: "Original Surfer", "cursive";
 $main-font: "Lato", sans-serif;
-$small: 700px;
+$medium: 760px;
+$small: 500px;
 
 * {
   padding: 0;
@@ -18,7 +19,7 @@ $small: 700px;
 body {
   overflow: auto;
   font-family: $main-font;
-  max-width: 500px;
+  min-width: 400px;
 }
 
 .container {
@@ -375,29 +376,23 @@ body {
   }
 }
 
-@media screen and (max-width: $small) {
+@media screen and (max-width: $medium) {
   .turn-signal {
     font-size: 16px;
   }
   .player-info {
     flex-direction: column;
     justify-content: flex-start;
-    gap: 290px;
+    gap: 380px;
     margin-top: 20px;
   }
   .battle-boards {
     flex-direction: column;
     gap: 100px;
     margin-bottom: 90px;
-    div {
-      width: 200px;
-      height: 200px;
-      grid-template: repeat(10, 20px) / repeat(10, 20px);
-    }
   }
   .game-startup {
     flex-direction: column;
-    max-width: $small;
     gap: 10px;
     margin-top: -200px;
   }
@@ -413,5 +408,30 @@ body {
   .player-one-ready,
   .player-two-ready {
     margin-top: -200px;
+  }
+  .player-not-ready {
+    &:after {
+      left: -45px;
+      bottom: -35px;
+    }
+  }
+}
+
+@media screen and (max-width: $small) {
+  .turn-signal {
+    font-size: 14px;
+  }
+  .player-info {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 290px;
+    margin-top: 20px;
+  }
+  .battle-boards {
+    div {
+      width: 200px;
+      height: 200px;
+      grid-template: repeat(10, 20px) / repeat(10, 20px);
+    }
   }
 }

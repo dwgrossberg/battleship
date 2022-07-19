@@ -8,6 +8,7 @@ const twoPlayerGame = (() => {
   const turnSignal = document.getElementById("turn-signal-text");
   const playerOneReadyDOM = document.getElementById("player-one-ready-button");
   const playerTwoReadyDOM = document.getElementById("player-two-ready-button");
+  const newGameDOM = document.getElementById("new-game");
 
   const runGame = (game) => {
     const playerOne = game.humanBoard.data.player;
@@ -18,6 +19,13 @@ const twoPlayerGame = (() => {
     const playerOneNotReady = () => {
       boardTwoDOM.classList.add("player-not-ready");
     };
+
+    newGameDOM.addEventListener("mousedown", () => {
+      boardOneDOM.removeEventListener("mousedown", playerTwoNotReady);
+      boardTwoDOM.removeEventListener("mousedown", playerOneNotReady);
+      boardOneDOM.classList.remove("player-not-ready");
+      boardTwoDOM.classList.remove("player-not-ready");
+    });
 
     const playerOneTurn = () => {
       playerTwoName.style.outline = "";
