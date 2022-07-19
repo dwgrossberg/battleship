@@ -225,7 +225,9 @@ body {
   justify-content: center;
   gap: 100px;
   padding: 30px;
-  div {
+  position: relative;
+  #board-one,
+  #board-two {
     width: 300px;
     height: 300px;
     background-color: $board-color;
@@ -253,6 +255,43 @@ body {
     .miss {
       background-color: #8ce2c0;
     }
+  }
+}
+
+#ships {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  margin-top: -20px;
+  width: 150px;
+  height: 190px;
+  div {
+    display: flex;
+    // flex-direction: column;
+    div {
+      width: 30px;
+      height: 30px;
+      background-color: $ship-color;
+      border: 0.5px dotted $background-color;
+      cursor: pointer;
+    }
+  }
+  #change-directions {
+    position: absolute;
+    margin-top: 20px;
+    place-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    bottom: -60px;
+    background-color: $highlight-color;
+    border-radius: 7px;
+    color: white;
+    font-size: 13px;
   }
 }
 
@@ -428,7 +467,8 @@ body {
     margin-top: 20px;
   }
   .battle-boards {
-    div {
+    #board-one,
+    #board-two {
       width: 200px;
       height: 200px;
       grid-template: repeat(10, 20px) / repeat(10, 20px);

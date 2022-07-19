@@ -1,6 +1,7 @@
 import Game from "../factories/game.js";
 import roboGame from "./roboGame.js";
 import twoPlayerGame from "./twoPlayerGame.js";
+import dragAndDrop from "./dragAndDrop.js";
 
 const displayController = (() => {
   const game = Game("Jerry");
@@ -10,6 +11,7 @@ const displayController = (() => {
   const playerTwo = game.roboBoard.data.player;
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
+  const shipsDOM = document.getElementById("ships");
   const playerOneInfo = document.getElementsByClassName("player-one")[0];
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const playerOneName = document.getElementById("player-one-name-input");
@@ -155,10 +157,9 @@ const displayController = (() => {
   // Start a new game when users click on the button
   const newGameDOM = document.getElementById("new-game");
   const setupGame = () => {
-    boardOneDOM.classList.remove("player-not-ready");
-    boardTwoDOM.classList.remove("player-not-ready");
     // Reset Game Objects
     game.reset();
+    shipsDOM.style.display = "";
     document.getElementsByClassName("player-one-ready")[0].style.display = "";
     document.getElementsByClassName("player-two-ready")[0].style.display = "";
     playerOneName.classList.add("edit");
@@ -212,6 +213,11 @@ const displayController = (() => {
     }
   };
   randomlyPlaceButton.addEventListener("mousedown", randomlyPlaceShips);
+
+  const dragAndDropButton = document.getElementById("drag-and-drop-button");
+  dragAndDropButton.addEventListener("mousedown", () => {
+    dragAndDrop.run();
+  });
 
   // Control the game setup for both one-player and two-player
   const startNextButton = document.getElementById("start-next-button");
