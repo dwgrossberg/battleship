@@ -377,24 +377,33 @@ body {
 
 @media screen and (max-width: $small) {
   .turn-signal {
-    font-size: 18px;
+    font-size: 16px;
   }
   .player-info {
     flex-direction: column;
     justify-content: flex-start;
-    gap: 370px;
+    gap: 290px;
     margin-top: 20px;
   }
   .battle-boards {
     flex-direction: column;
-    gap: 80px;
+    gap: 100px;
     margin-bottom: 90px;
+    div {
+      width: 200px;
+      height: 200px;
+      grid-template: repeat(10, 20px) / repeat(10, 20px);
+    }
   }
   .game-startup {
     flex-direction: column;
     max-width: $small;
     gap: 10px;
-    margin-top: -120px;
+    margin-top: -200px;
+  }
+  .randomly-place {
+    position: relative;
+    top: 160px;
   }
   #randomly-place-button,
   #drag-and-drop-button,
@@ -403,15 +412,6 @@ body {
   }
   .player-one-ready,
   .player-two-ready {
-    margin-top: -120px;
-  }
-  .info-missing {
-    &:after {
-      top: 100px;
-    }
-  }
-  .player-not-ready {
-    &:after {
-    }
+    margin-top: -200px;
   }
 }
