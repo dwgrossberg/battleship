@@ -16,9 +16,12 @@ const displayController = (() => {
   const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const playerOneName = document.getElementById("player-one-name-input");
   const playerTwoName = document.getElementById("player-two-name-input");
+  const playerOneShipsLeft = document.getElementById("player-one-ships-left");
+  const playerTwoShipsLeft = document.getElementById("player-two-ships-left");
   const gameStartup = document.getElementsByClassName("game-startup")[0];
   const startNext = document.getElementById("start-next-button");
   const turnSignal = document.getElementById("turn-signal-text");
+  const startNextButton = document.getElementById("start-next-button");
 
   // Display the Gameboards
   const renderBoard = (board, DOMelem) => {
@@ -54,21 +57,26 @@ const displayController = (() => {
       slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
+      playerTwoShipsLeft.innerText = 0;
       startNext.innerText = "Next";
       playerTwoName.textContent = "Player2";
       game.roboBoard.data.player.playerInfo.name = "Player2";
       playerTwoName.style.cursor = "default";
       playerTwoName.style.outline = "1px solid #6a7aac";
+      playerTwoShipsLeft.innerText = 0;
     } else {
       slider.innerHTML = ` <div class="one-player-logo"></div>
                 One Player Two
                 <div class="two-player-logo"></div>`;
+      boardOneDOM.style.display = "";
+      playerOneInfo.style.display = "";
       boardTwoDOM.style.display = "none";
       playerTwoInfo.style.display = "none";
       startNext.innerText = "Start!";
       playerTwoName.textContent = "roboPlayer";
       playerTwoName.style.cursor = "";
       playerTwoName.style.outline = "";
+      playerOneShipsLeft.innerText = 0;
     }
   });
 
@@ -125,8 +133,6 @@ const displayController = (() => {
 
   // Update player-info number of ships left
   const updateShipsLeft = () => {
-    const playerOneShipsLeft = document.getElementById("player-one-ships-left");
-    const playerTwoShipsLeft = document.getElementById("player-two-ships-left");
     playerOneShipsLeft.textContent = game.humanBoard.data.ships.filter((ship) =>
       ship.hits.includes(null)
     ).length;
@@ -157,8 +163,11 @@ const displayController = (() => {
     // Reset Game Objects
     game.reset();
     shipsDOM.style.display = "";
+    playerOneShipsLeft.innerText = "0";
+    playerTwoShipsLeft.innerText = "0";
     document.getElementsByClassName("player-one-ready")[0].style.display = "";
     document.getElementsByClassName("player-two-ready")[0].style.display = "";
+    startNextButton.classList.remove("info-missing");
     playerOneName.classList.add("edit");
     playerTwoName.classList.add("edit");
     playerOneName.setAttribute("contentEditable", true);
@@ -203,6 +212,7 @@ const displayController = (() => {
       game.roboBoard.removeAllShips();
       game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
       renderBoard(boardTwo, boardTwoDOM);
+      updateShipsLeft();
     }
   };
   randomlyPlaceButton.addEventListener("mousedown", randomlyPlaceShips);
@@ -213,16 +223,14 @@ const displayController = (() => {
   });
 
   // Control the game setup for both one-player and two-player
-  const startNextButton = document.getElementById("start-next-button");
   const gameStartNext = (e) => {
     if (
-      (e.target.innerText === "Next" &&
-        boardOne.every((item) => item.hasShip === false)) ||
+      (e.target.innerText === "Next" && playerOneShipsLeft.innerText !== "5") ||
       (e.target.innerText === "Start!" &&
-        boardOne.every((item) => item.hasShip === false)) ||
+        playerOneShipsLeft.innerText !== "5") ||
       (e.target.innerText === "Start!" &&
         checkbox.checked === true &&
-        boardTwo.every((item) => item.hasShip === false))
+        playerTwoShipsLeft.innerText !== "5")
     ) {
       startNextButton.classList.add("info-missing");
       e.preventDefault(); // Prevent the game from starting when no Ships are on Board
@@ -233,7 +241,9 @@ const displayController = (() => {
       playerOneInfo.style.display = "none";
       boardTwoDOM.style.display = "";
       playerTwoInfo.style.display = "";
+      shipsDOM.style.display = "";
       startNext.innerText = "Start!";
+      playerTwoShipsLeft.innerText = 0;
       playerOneName.setAttribute("contentEditable", false);
       playerOneName.style.outline = "";
       playerTwoName.setAttribute("contentEditable", true);

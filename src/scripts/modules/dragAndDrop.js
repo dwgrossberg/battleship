@@ -2,8 +2,8 @@ import displayController from "./displayControl";
 
 const dragAndDrop = (() => {
   const checkbox = document.getElementById("players");
-  const playerOneInfo = document.getElementsByClassName("player-one")[0];
-  const playerTwoInfo = document.getElementsByClassName("player-two")[0];
+  const playerOneShipsLeft = document.getElementById("player-one-ships-left");
+  const playerTwoShipsLeft = document.getElementById("player-two-ships-left");
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
   const shipsDOM = document.getElementById("ships");
@@ -13,6 +13,7 @@ const dragAndDrop = (() => {
   const submarine = document.getElementById("submarine");
   const patrolBoat = document.getElementById("patrol-boat");
   const changeDirections = document.getElementById("change-directions");
+  const startNextButton = document.getElementById("start-next-button");
   const targets = [boardOneDOM, boardTwoDOM];
   const shipsArray = [carrier, battleship, destroyer, submarine, patrolBoat];
 
@@ -22,7 +23,6 @@ const dragAndDrop = (() => {
     const boardTwo = game.roboBoard.data.board;
 
     shipsDOM.style.display = "flex";
-
     shipsArray.forEach((ship) => (ship.style.display = ""));
 
     // Remove any ships already on the board
@@ -61,14 +61,13 @@ const dragAndDrop = (() => {
     };
 
     changeDirections.addEventListener("mousedown", () => {
-      console.log(vertical);
-
       vertical === false ? verticalShips() : horizontalShips();
     });
 
     let dragged = null;
     shipsArray.forEach((ship) =>
       ship.addEventListener("dragstart", (e) => {
+        startNextButton.classList.remove("info-missing");
         dragged = e.target;
       })
     );
@@ -91,14 +90,18 @@ const dragAndDrop = (() => {
           });
           if (dragged.dataset.vertical === "true") {
             ship.vertical = true;
+          } else {
+            ship.vertical = false;
           }
-          board.placeShip(ship, Number(index));
-          displayController.removeBoard(boardOneDOM);
-          displayController.renderBoard(boardOne, boardOneDOM);
-          document.getElementById("player-one-ships-left").innerText =
-            Number(document.getElementById("player-one-ships-left").innerText) +
-            1;
-          dragged.style.display = "none";
+          if (board.checkShips(ship, index) && board.checkEdges(ship, index)) {
+            board.placeShip(ship, Number(index));
+            displayController.removeBoard(boardOneDOM);
+            displayController.renderBoard(boardOne, boardOneDOM);
+            playerOneShipsLeft.innerText = board.data.ships.filter(
+              (ship) => ship.position.length > 0
+            ).length;
+            dragged.style.display = "none";
+          }
         } else {
           board = game.roboBoard;
           board.data.ships.forEach((boat) => {
@@ -106,6 +109,20 @@ const dragAndDrop = (() => {
               ship = boat;
             }
           });
+          if (dragged.dataset.vertical === "true") {
+            ship.vertical = true;
+          } else {
+            ship.vertical = false;
+          }
+          if (board.checkShips(ship, index) && board.checkEdges(ship, index)) {
+            board.placeShip(ship, Number(index));
+            displayController.removeBoard(boardTwoDOM);
+            displayController.renderBoard(boardTwo, boardTwoDOM);
+            playerTwoShipsLeft.innerText = board.data.ships.filter(
+              (ship) => ship.position.length > 0
+            ).length;
+            dragged.style.display = "none";
+          }
         }
 
         // Test board at given index before placing the actual Ship

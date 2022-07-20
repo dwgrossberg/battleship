@@ -132,6 +132,8 @@ const Gameboard = (player) => {
 
   return {
     data,
+    checkEdges,
+    checkShips,
     placeShip,
     randomlyPlace,
     receiveAttack,
