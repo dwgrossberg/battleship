@@ -15,13 +15,15 @@ const dragAndDrop = (() => {
   const changeDirections = document.getElementById("change-directions");
   const targets = [boardOneDOM, boardTwoDOM];
   const shipsArray = [carrier, battleship, destroyer, submarine, patrolBoat];
-  let vertical = false;
 
   const run = (game) => {
+    let vertical = false;
     const boardOne = game.humanBoard.data.board;
     const boardTwo = game.roboBoard.data.board;
 
     shipsDOM.style.display = "flex";
+
+    shipsArray.forEach((ship) => (ship.style.display = ""));
 
     // Remove any ships already on the board
     if (checkbox.checked === false) {
@@ -59,6 +61,8 @@ const dragAndDrop = (() => {
     };
 
     changeDirections.addEventListener("mousedown", () => {
+      console.log(vertical);
+
       vertical === false ? verticalShips() : horizontalShips();
     });
 
@@ -78,16 +82,30 @@ const dragAndDrop = (() => {
         const index = e.target.dataset.index;
         let board;
         let ship;
-        if (e.target.parentNode.id === "board-one") {
-          board = game.humanBoard.data;
-          board.ships.forEach((boat) => {
+        if (e.target.classList[1] === "board-one") {
+          board = game.humanBoard;
+          board.data.ships.forEach((boat) => {
             if (boat.name === dragged.id) {
               ship = boat;
             }
           });
-          console.log(ship);
+          if (dragged.dataset.vertical === "true") {
+            ship.vertical = true;
+          }
+          board.placeShip(ship, Number(index));
+          displayController.removeBoard(boardOneDOM);
+          displayController.renderBoard(boardOne, boardOneDOM);
+          document.getElementById("player-one-ships-left").innerText =
+            Number(document.getElementById("player-one-ships-left").innerText) +
+            1;
+          dragged.style.display = "none";
         } else {
-          board = game.roboBoard.data;
+          board = game.roboBoard;
+          board.data.ships.forEach((boat) => {
+            if (boat.name === dragged.id) {
+              ship = boat;
+            }
+          });
         }
 
         // Test board at given index before placing the actual Ship

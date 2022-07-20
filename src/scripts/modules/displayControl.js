@@ -31,6 +31,9 @@ const displayController = (() => {
       } else {
         div.classList.add("noShip");
       }
+      board === boardOne
+        ? div.classList.add("board-one")
+        : div.classList.add("board-two");
       DOMelem.appendChild(div);
     });
   };
@@ -186,7 +189,7 @@ const displayController = (() => {
   newGameDOM.addEventListener("mousedown", setupGame);
 
   const randomlyPlaceButton = document.getElementById("randomly-place-button");
-  const randomlyPlaceShips = (e) => {
+  const randomlyPlaceShips = () => {
     shipsDOM.style.display = "";
     startNextButton.classList.remove("info-missing");
     if (boardTwoDOM.style.display === "none") {
