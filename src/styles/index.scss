@@ -247,7 +247,7 @@ body {
       background-color: $ship-color;
     }
     .hideShip {
-      background-color: $board-color;
+      background-color: transparent;
     }
     .hit {
       background-color: #e2958c;
@@ -280,7 +280,7 @@ body {
   #change-directions {
     position: absolute;
     margin-top: 20px;
-    place-self: center;
+    left: 20px;
     display: flex;
     align-items: center;
     justify-content: center;

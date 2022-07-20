@@ -1,4 +1,7 @@
+import displayController from "./displayControl";
+
 const dragAndDrop = (() => {
+  const checkbox = document.getElementById("players");
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
   const shipsDOM = document.getElementById("ships");
@@ -12,15 +15,30 @@ const dragAndDrop = (() => {
   const shipsArray = [carrier, battleship, destroyer, submarine, patrolBoat];
   let vertical = false;
 
-  const run = () => {
+  const run = (game) => {
+    const boardOne = game.humanBoard.data.board;
+    const boardTwo = game.roboBoard.data.board;
+
     shipsDOM.style.display = "flex";
 
+    // Remove any ships already on the board
+    if (checkbox.checked === false) {
+      displayController.removeBoard(boardOneDOM);
+      game.humanBoard.removeAllShips();
+      displayController.renderBoard(boardOne, boardOneDOM);
+    } else if (checkbox.checked === true) {
+      displayController.removeBoard(boardOneDOM);
+      game.humanBoard.removeAllShips();
+      displayController.renderBoard(boardOne, boardOneDOM);
+      displayController.removeBoard(boardTwoDOM);
+      game.roboBoard.removeAllShips();
+      displayController.renderBoard(boardTwo, boardTwoDOM);
+    }
     const verticalShips = () => {
       shipsDOM.style.flexDirection = "row";
       shipsArray.forEach((ship) => {
         ship.style.flexDirection = "column";
       });
-      changeDirections.style.left = "20px";
       vertical = true;
     };
 

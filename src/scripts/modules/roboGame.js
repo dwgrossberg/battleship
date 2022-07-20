@@ -10,6 +10,7 @@ const roboGame = (() => {
     const playerOne = game.humanBoard.data.player;
     const playerTwo = game.roboBoard.data.player;
     const boardTwo = game.roboBoard.data.board;
+    boardTwoDOM.style.display = "";
     displayController.removeBoard(boardTwoDOM);
     game.roboBoard.removeAllShips();
     game.roboBoard.randomlyPlace(game.roboBoard.data.ships);

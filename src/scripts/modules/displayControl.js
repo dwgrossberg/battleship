@@ -51,10 +51,6 @@ const displayController = (() => {
       slider.innerHTML = `<div class="one-player-logo"></div>
                 One Two Player
                 <div class="two-player-logo"></div>`;
-      boardTwoDOM.style.display = "";
-      playerTwoInfo.style.display = "";
-      boardTwoDOM.style.opacity = 0.5;
-      playerTwoInfo.style.opacity = 0.5;
       startNext.innerText = "Next";
       playerTwoName.textContent = "Player2";
       game.roboBoard.data.player.playerInfo.name = "Player2";
@@ -66,8 +62,6 @@ const displayController = (() => {
                 <div class="two-player-logo"></div>`;
       boardTwoDOM.style.display = "none";
       playerTwoInfo.style.display = "none";
-      boardTwoDOM.style.opacity = "";
-      playerTwoInfo.style.opacity = "";
       startNext.innerText = "Start!";
       playerTwoName.textContent = "roboPlayer";
       playerTwoName.style.cursor = "";
@@ -142,7 +136,7 @@ const displayController = (() => {
   const displayTurn = () => {
     if (gameStartup.style.display === "flex") {
       //if the game is still being setup
-      playerOneInfo.style.opacity === ""
+      playerOneInfo.style.display === ""
         ? (turnSignal.innerText = `${playerOne.playerInfo.name}'s turn: place your ships on the board to start`)
         : (turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: place your ships on the board to start`);
     } else {
@@ -168,6 +162,8 @@ const displayController = (() => {
     playerTwoName.setAttribute("contentEditable", true);
     playerOneName.style.outline = "1px dotted #6a7aac";
     playerTwoName.style.outline = "1px dotted #6a7aac";
+    boardOneDOM.style.display = "";
+    playerOneInfo.style.display = "";
     removeBoard(boardOneDOM);
     game.humanBoard.removeAllShips();
     renderBoard(boardOne, boardOneDOM);
@@ -191,21 +187,15 @@ const displayController = (() => {
 
   const randomlyPlaceButton = document.getElementById("randomly-place-button");
   const randomlyPlaceShips = (e) => {
-    const player1Info =
-      e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[1];
-    const player2Info =
-      e.target.parentNode.parentNode.parentNode.childNodes[5].childNodes[3];
+    shipsDOM.style.display = "";
     startNextButton.classList.remove("info-missing");
-    if (
-      player2Info.style.display === "none" ||
-      player2Info.style.opacity === "0.5"
-    ) {
+    if (boardTwoDOM.style.display === "none") {
       removeBoard(boardOneDOM);
       game.humanBoard.removeAllShips();
       game.humanBoard.randomlyPlace(game.humanBoard.data.ships);
       renderBoard(boardOne, boardOneDOM);
       updateShipsLeft();
-    } else if (player1Info.style.opacity === "0.5") {
+    } else if (boardOneDOM.style.display === "none") {
       removeBoard(boardTwoDOM);
       game.roboBoard.removeAllShips();
       game.roboBoard.randomlyPlace(game.roboBoard.data.ships);
@@ -216,7 +206,7 @@ const displayController = (() => {
 
   const dragAndDropButton = document.getElementById("drag-and-drop-button");
   dragAndDropButton.addEventListener("mousedown", () => {
-    dragAndDrop.run();
+    dragAndDrop.run(game);
   });
 
   // Control the game setup for both one-player and two-player
@@ -234,11 +224,12 @@ const displayController = (() => {
       startNextButton.classList.add("info-missing");
       e.preventDefault(); // Prevent the game from starting when no Ships are on Board
     } else if (e.target.innerText === "Next") {
+      // Two-player mode
       startNextButton.classList.remove("info-missing");
-      boardOneDOM.style.opacity = 0.5;
-      playerOneInfo.style.opacity = 0.5;
-      boardTwoDOM.style.opacity = "";
-      playerTwoInfo.style.opacity = "";
+      boardOneDOM.style.display = "none";
+      playerOneInfo.style.display = "none";
+      boardTwoDOM.style.display = "";
+      playerTwoInfo.style.display = "";
       startNext.innerText = "Start!";
       playerOneName.setAttribute("contentEditable", false);
       playerOneName.style.outline = "";
@@ -248,21 +239,19 @@ const displayController = (() => {
         item.classList.add("hideShip")
       );
     } else if (e.target.innerText === "Start!") {
+      shipsDOM.style.display = "";
       playerOneName.removeAttribute("class");
       playerTwoName.removeAttribute("class");
       startNextButton.classList.remove("info-missing");
       gameStartup.style.display = "";
       slider.style.display = "";
-      boardOneDOM.style.opacity = "";
-      playerOneInfo.style.opacity = "";
+      boardOneDOM.style.display = "";
+      playerOneInfo.style.display = "";
+      playerTwoInfo.style.display = "";
       playerOneName.setAttribute("contentEditable", false);
       playerOneName.style.outline = "";
-      boardTwoDOM.style.opacity = "";
-      playerTwoInfo.style.opacity = "";
       playerTwoName.setAttribute("contentEditable", false);
       playerTwoName.style.outline = "";
-      boardTwoDOM.style.display = "";
-      playerTwoInfo.style.display = "";
       if (checkbox.checked === false) {
         playerTwoName.textContent = "roboPlayer";
         // Call roboGame module
