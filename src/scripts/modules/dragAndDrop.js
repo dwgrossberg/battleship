@@ -2,6 +2,8 @@ import displayController from "./displayControl";
 
 const dragAndDrop = (() => {
   const checkbox = document.getElementById("players");
+  const playerOneInfo = document.getElementsByClassName("player-one")[0];
+  const playerTwoInfo = document.getElementsByClassName("player-two")[0];
   const boardOneDOM = document.getElementById("board-one");
   const boardTwoDOM = document.getElementById("board-two");
   const shipsDOM = document.getElementById("ships");
@@ -27,17 +29,22 @@ const dragAndDrop = (() => {
       game.humanBoard.removeAllShips();
       displayController.renderBoard(boardOne, boardOneDOM);
     } else if (checkbox.checked === true) {
-      displayController.removeBoard(boardOneDOM);
-      game.humanBoard.removeAllShips();
-      displayController.renderBoard(boardOne, boardOneDOM);
-      displayController.removeBoard(boardTwoDOM);
-      game.roboBoard.removeAllShips();
-      displayController.renderBoard(boardTwo, boardTwoDOM);
+      if (boardOneDOM.style.display === "") {
+        displayController.removeBoard(boardOneDOM);
+        game.humanBoard.removeAllShips();
+        displayController.renderBoard(boardOne, boardOneDOM);
+      } else if (boardTwoDOM.style.display === "") {
+        displayController.removeBoard(boardTwoDOM);
+        game.roboBoard.removeAllShips();
+        displayController.renderBoard(boardTwo, boardTwoDOM);
+      }
     }
+
     const verticalShips = () => {
       shipsDOM.style.flexDirection = "row";
       shipsArray.forEach((ship) => {
         ship.style.flexDirection = "column";
+        ship.dataset.vertical = "true";
       });
       vertical = true;
     };
@@ -46,6 +53,7 @@ const dragAndDrop = (() => {
       shipsDOM.style.flexDirection = "";
       shipsArray.forEach((ship) => {
         ship.style.flexDirection = "";
+        ship.dataset.vertical = "false";
       });
       vertical = false;
     };
@@ -67,7 +75,22 @@ const dragAndDrop = (() => {
     );
     targets.forEach((target) =>
       target.addEventListener("drop", (e) => {
-        console.log(e.target);
+        const index = e.target.dataset.index;
+        let board;
+        let ship;
+        if (e.target.parentNode.id === "board-one") {
+          board = game.humanBoard.data;
+          board.ships.forEach((boat) => {
+            if (boat.name === dragged.id) {
+              ship = boat;
+            }
+          });
+          console.log(ship);
+        } else {
+          board = game.roboBoard.data;
+        }
+
+        // Test board at given index before placing the actual Ship
       })
     );
   };

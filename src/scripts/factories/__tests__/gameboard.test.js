@@ -73,6 +73,7 @@ describe("Gameboard Factory", () => {
     test("Gameboard will not span vertical ships across the bottom edge", () => {
       carrier2.changeAxis("vertical");
       testBoard.placeShip(carrier2, 60);
+      console.log(testBoard.placeShip(carrier2, 60));
       expect(testBoard.data.board[60].hasShip).toBe(false);
       expect(testBoard.data.board[70].hasShip).toBe(false);
       expect(testBoard.data.board[80].hasShip).toBe(false);

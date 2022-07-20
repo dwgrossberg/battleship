@@ -71,6 +71,8 @@ const Gameboard = (player) => {
           data.board[startingPoint + i]["shipType"] = ship;
           ship.position.push(startingPoint + i);
         }
+      } else {
+        return false;
       }
     } else if (ship.vertical === true) {
       if (checkShips(ship, startingPoint) && checkEdges(ship, startingPoint)) {
@@ -79,6 +81,8 @@ const Gameboard = (player) => {
           data.board[startingPoint + i * 10]["shipType"] = ship;
           ship.position.push(startingPoint + i * 10);
         }
+      } else {
+        return false;
       }
     }
   };
