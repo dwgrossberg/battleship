@@ -18,30 +18,6 @@ const dragAndDrop = (() => {
   const shipsArray = [carrier, battleship, destroyer, submarine, patrolBoat];
 
   const run = (game) => {
-    let vertical = false;
-    const boardOne = game.humanBoard.data.board;
-    const boardTwo = game.roboBoard.data.board;
-
-    shipsDOM.style.display = "flex";
-    shipsArray.forEach((ship) => (ship.style.display = ""));
-
-    // Remove any ships already on the board
-    if (checkbox.checked === false) {
-      displayController.removeBoard(boardOneDOM);
-      game.humanBoard.removeAllShips();
-      displayController.renderBoard(boardOne, boardOneDOM);
-    } else if (checkbox.checked === true) {
-      if (boardOneDOM.style.display === "") {
-        displayController.removeBoard(boardOneDOM);
-        game.humanBoard.removeAllShips();
-        displayController.renderBoard(boardOne, boardOneDOM);
-      } else if (boardTwoDOM.style.display === "") {
-        displayController.removeBoard(boardTwoDOM);
-        game.roboBoard.removeAllShips();
-        displayController.renderBoard(boardTwo, boardTwoDOM);
-      }
-    }
-
     const verticalShips = () => {
       shipsDOM.style.flexDirection = "row";
       shipsArray.forEach((ship) => {
@@ -59,6 +35,33 @@ const dragAndDrop = (() => {
       });
       vertical = false;
     };
+
+    let vertical = false;
+    const boardOne = game.humanBoard.data.board;
+    const boardTwo = game.roboBoard.data.board;
+    horizontalShips();
+    shipsDOM.style.display = "flex";
+    shipsArray.forEach((ship) => (ship.style.display = ""));
+
+    // Remove any ships already on the board
+    if (checkbox.checked === false) {
+      displayController.removeBoard(boardOneDOM);
+      game.humanBoard.removeAllShips();
+      displayController.renderBoard(boardOne, boardOneDOM);
+      playerOneShipsLeft.innerText = 0;
+    } else if (checkbox.checked === true) {
+      if (boardOneDOM.style.display === "") {
+        displayController.removeBoard(boardOneDOM);
+        game.humanBoard.removeAllShips();
+        displayController.renderBoard(boardOne, boardOneDOM);
+        playerOneShipsLeft.innerText = 0;
+      } else if (boardTwoDOM.style.display === "") {
+        displayController.removeBoard(boardTwoDOM);
+        game.roboBoard.removeAllShips();
+        displayController.renderBoard(boardTwo, boardTwoDOM);
+        playerTwoShipsLeft.innerText = 0;
+      }
+    }
 
     changeDirections.addEventListener("mousedown", () => {
       vertical === false ? verticalShips() : horizontalShips();

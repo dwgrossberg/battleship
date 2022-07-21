@@ -261,14 +261,15 @@ body {
 #ships {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  width: 220px;
   gap: 10px;
+  top: -20px;
   position: relative;
-  margin-top: -20px;
-  width: 150px;
-  height: 190px;
   div {
     display: flex;
-    // flex-direction: column;
     div {
       width: 30px;
       height: 30px;
@@ -279,15 +280,13 @@ body {
   }
   #change-directions {
     position: absolute;
-    margin-top: 20px;
-    left: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     width: 120px;
     height: 40px;
-    bottom: -60px;
+    bottom: -55px;
     background-color: $highlight-color;
     border-radius: 7px;
     color: white;
@@ -422,7 +421,7 @@ body {
   .player-info {
     flex-direction: column;
     justify-content: flex-start;
-    gap: 380px;
+    gap: 400px;
     margin-top: 20px;
   }
   .battle-boards {
@@ -430,10 +429,18 @@ body {
     gap: 100px;
     margin-bottom: 90px;
   }
+  #ships {
+    margin-top: -70px;
+    margin-bottom: 20px;
+    order: 1;
+  }
+  #change-directions {
+    margin-bottom: 10px;
+  }
   .game-startup {
     flex-direction: column;
     gap: 10px;
-    margin-top: -200px;
+    margin-top: -180px;
   }
   .randomly-place {
     position: relative;
@@ -450,8 +457,8 @@ body {
   }
   .player-not-ready {
     &:after {
-      left: -45px;
-      bottom: -35px;
+      left: 5px;
+      bottom: -37px;
     }
   }
 }
@@ -466,12 +473,24 @@ body {
     gap: 290px;
     margin-top: 20px;
   }
+
   .battle-boards {
     #board-one,
     #board-two {
       width: 200px;
       height: 200px;
       grid-template: repeat(10, 20px) / repeat(10, 20px);
+    }
+  }
+  #ships {
+    top: -10px;
+    width: 160px;
+    height: 160px;
+    div {
+      div {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }
