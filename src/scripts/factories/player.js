@@ -11,46 +11,36 @@ const Player = (name) => {
   };
 
   // Determine the next best move based on some logical assumptions about the game
+  let nextMoves = [];
   const findNextMove = (board, num) => {
-    let nextMoves = [];
-    nextMoves = [];
+    // Remove num from nextMoves array to avoid duplication
+    nextMoves.splice(nextMoves.indexOf(num), 1);
     if (board.data.board[num].hasShip === true) {
+      nextMoves = [];
       // Protect roboPlayer from making out-of-bound moves
       if (board.data.board[num - 1]) {
-        if (
-          board.data.board[num - 1].isHit === false &&
-          board.data.board[num - 1].hasShip === true
-        ) {
+        if (board.data.board[num - 1].isHit === false) {
           nextMoves.push(num - 1);
         }
       }
       if (board.data.board[num + 1]) {
-        if (
-          board.data.board[num + 1].isHit === false &&
-          board.data.board[num + 1].hasShip === true
-        ) {
+        if (board.data.board[num + 1].isHit === false) {
           nextMoves.push(num + 1);
         }
       }
       if (board.data.board[num - 10]) {
-        if (
-          board.data.board[num - 10].isHit === false &&
-          board.data.board[num - 10].hasShip === true
-        ) {
+        if (board.data.board[num - 10].isHit === false) {
           nextMoves.push(num - 10);
         }
       }
       if (board.data.board[num + 10]) {
-        if (
-          board.data.board[num + 10].isHit === false &&
-          board.data.board[num + 10].hasShip === true
-        ) {
+        if (board.data.board[num + 10].isHit === false) {
           nextMoves.push(num + 10);
         }
       }
       return nextMoves;
     } else {
-      return null;
+      return nextMoves;
     }
   };
 
@@ -73,10 +63,6 @@ const Player = (name) => {
           board.data.board[randomSpot].isHit === false &&
           !playerInfo.shots.includes((item) => item.index === randomSpot)
         ) {
-          console.log(
-            board.data.board[randomSpot],
-            playerInfo.shots.includes((item) => item.index === randomSpot)
-          );
           fireAway(board, randomSpot);
           pass = false;
           return {

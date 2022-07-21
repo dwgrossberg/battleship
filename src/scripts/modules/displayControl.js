@@ -76,7 +76,6 @@ const displayController = (() => {
       playerTwoName.textContent = "roboPlayer";
       playerTwoName.style.cursor = "";
       playerTwoName.style.outline = "";
-      playerOneShipsLeft.innerText = 0;
     }
   });
 
