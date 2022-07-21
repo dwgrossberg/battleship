@@ -2,7 +2,7 @@
 
 A TDD implementation of the classic game Battleship
 
-Gameboard:
-
-todo:
-mobile styles
+- techs used
+- objectives & challenges
+- key features
+- gif of roboPlayer

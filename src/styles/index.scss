@@ -415,8 +415,22 @@ body {
 }
 
 @media screen and (max-width: $medium) {
+  .header {
+    .header-left {
+      font-size: 32px;
+    }
+  }
   .turn-signal {
     font-size: 16px;
+    .hit {
+      font-size: 20px;
+    }
+    .miss {
+      font-size: 20px;
+    }
+    .winner {
+      font-size: 26px;
+    }
   }
   .player-info {
     flex-direction: column;
@@ -424,6 +438,7 @@ body {
     gap: 400px;
     margin-top: 20px;
   }
+
   .battle-boards {
     flex-direction: column;
     gap: 100px;
@@ -464,8 +479,22 @@ body {
 }
 
 @media screen and (max-width: $small) {
+  .header {
+    .header-left {
+      font-size: 28px;
+    }
+  }
   .turn-signal {
     font-size: 14px;
+    .hit {
+      font-size: 16px;
+    }
+    .miss {
+      font-size: 16px;
+    }
+    .winner {
+      font-size: 20px;
+    }
   }
   .player-info {
     flex-direction: column;
@@ -473,7 +502,6 @@ body {
     gap: 290px;
     margin-top: 20px;
   }
-
   .battle-boards {
     #board-one,
     #board-two {
