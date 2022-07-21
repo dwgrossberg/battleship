@@ -71,8 +71,12 @@ const Player = (name) => {
         if (
           board.data.board[randomSpot] &&
           board.data.board[randomSpot].isHit === false &&
-          !playerInfo.shots.includes((item) => item.index)
+          !playerInfo.shots.includes((item) => item.index === randomSpot)
         ) {
+          console.log(
+            board.data.board[randomSpot],
+            playerInfo.shots.includes((item) => item.index === randomSpot)
+          );
           fireAway(board, randomSpot);
           pass = false;
           return {

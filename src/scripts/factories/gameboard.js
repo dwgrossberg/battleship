@@ -119,8 +119,10 @@ const Gameboard = (player) => {
   const receiveAttack = (num) => {
     if (data.board[num].hasShip === true) {
       data.board[num].shipType.hit(num);
+      data.board[num].isHit = true;
       return true;
     } else {
+      data.board[num].isHit = true;
       data.missedShots.push(num);
       return false;
     }

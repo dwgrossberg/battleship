@@ -127,8 +127,6 @@ const dragAndDrop = (() => {
             dragged.style.display = "none";
           }
         }
-
-        // Test board at given index before placing the actual Ship
       })
     );
   };
