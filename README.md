@@ -2,7 +2,15 @@
 
 A TDD implementation of the classic game Battleship
 
-- techs used
-- objectives & challenges
+--
+
+## Tech Stack
+
+- Written in vanilla **JavaScript** and **Sass** (scss)
+- Bundled together using **Webpack**
+- All unit testing handled by **Jest**
+
+## Objectives & Challenges
+
 - key features
 - gif of roboPlayer

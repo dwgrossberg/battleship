@@ -61,7 +61,7 @@ const roboGame = (() => {
       turnSignal.removeAttribute("class");
       playerTwoName.style.outline = "2px solid #e2c08c";
       turnSignal.innerText = `${playerTwo.playerInfo.name}'s turn: fire away!`;
-      setTimeout(roboAttack, 500);
+      setTimeout(roboAttack, 250);
     };
 
     let nextRoboMove;
@@ -90,7 +90,7 @@ const roboGame = (() => {
       }
       endGame();
       if (game.humanBoard.allSunk() === false) {
-        setTimeout(playerTurn, 500);
+        setTimeout(playerTurn, 250);
       }
     };
 
@@ -98,7 +98,7 @@ const roboGame = (() => {
       Array.from(boardTwoDOM.childNodes).forEach((div) =>
         div.removeEventListener("mousedown", playerFire)
       );
-      setTimeout(roboFire, 500);
+      setTimeout(roboFire, 250);
     };
 
     const endGame = () => {
