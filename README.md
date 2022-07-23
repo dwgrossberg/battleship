@@ -12,5 +12,6 @@ A TDD implementation of the classic game Battleship
 
 ## Objectives & Challenges
 
-- key features
+## Key Features
+
 - gif of roboPlayer
