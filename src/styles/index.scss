@@ -17,7 +17,8 @@ $small: 500px;
 }
 
 body {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-family: $main-font;
   min-width: 400px;
 }
@@ -36,7 +37,7 @@ body {
   background-position: center bottom;
   font-family: $main-font;
   display: grid;
-  grid-template: 140px 75px 75px 1fr 75px 75px / 1fr;
+  grid-template: 130px 75px 75px 1fr 75px 75px / 1fr;
 }
 
 .header {
