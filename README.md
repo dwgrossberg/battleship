@@ -1,5 +1,7 @@
 # battleship
 
+See a project demo [here](https://dwgrossberg.github.io/battleship/) :point_left:
+
 A TDD implementation of the classic game Battleship
 
 ---
@@ -11,7 +13,7 @@ A TDD implementation of the classic game Battleship
 - All unit testing handled by **Jest**
 - Organized with **ESLint** and **Prettier**
 
-![Example game vs. roboPlayer](./src/assets/roboGame.gif)
+![Example game vs. roboPlayer](./src/assets/roboGame-one.gif)
 
 ---
 
